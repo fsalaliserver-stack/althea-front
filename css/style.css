@@ -1,0 +1,111 @@
+/* ===== Reset ===== */
+*, *::before, *::after { box-sizing: border-box; }
+body, h1, h2, h3, p, ul, ol, dl, dd { margin: 0; }
+img { display: block; max-width: 100%; height: auto; }
+input, button { font: inherit; }
+
+/* ===== Base ===== */
+body {
+  font-family: var(--police);
+  font-size: var(--taille-base);
+  line-height: 1.5;
+  color: var(--couleur-texte);
+  background: var(--couleur-fond);
+}
+h1 { font-size: var(--taille-h1); }
+h2 { font-size: var(--taille-h2); }
+h3 { font-size: var(--taille-h3); }
+p { max-width: 65ch; }
+a { color: var(--couleur-primaire); }
+main { padding: var(--espace); }
+
+/* ===== Accessibilité ===== */
+:focus-visible {
+  outline: 3px solid var(--couleur-primaire);
+  outline-offset: 3px;
+}
+.evitement {
+  position: absolute;
+  top: -100px;
+  left: var(--espace);
+  background: var(--couleur-fond);
+  padding: var(--espace);
+}
+.evitement:focus { top: var(--espace); }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ===== Composants communs ===== */
+.liste-reset { list-style: none; padding: 0; }
+.btn {
+  min-height: var(--cible);
+  padding: 0 var(--espace);
+  border: 0;
+  border-radius: var(--rayon);
+  background: var(--couleur-primaire);
+  color: var(--couleur-sur-primaire);
+}
+.btn:hover:not(:disabled) { background: var(--couleur-primaire-fonce); }
+.btn:disabled {
+  background: var(--couleur-surface);
+  color: var(--couleur-texte-discret);
+  border: 2px dashed var(--couleur-texte-discret);
+}
+.stock-rupture {
+  color: var(--couleur-alerte);
+  font-weight: bold;
+}
+
+/* ===== En-tête et pied ===== */
+.entete {
+  padding: var(--espace);
+  background: var(--couleur-surface);
+  border-bottom: 2px solid var(--couleur-primaire);
+}
+.logo img { height: 40px; width: auto; }
+.panier { position: relative; display: inline-block; }
+.panier::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: -12px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--couleur-alerte);
+}
+.recherche input,
+.recherche button { min-height: var(--cible); }
+.menu a {
+  display: block;
+  min-height: var(--cible);
+  line-height: var(--cible);
+}
+.pied { display: none; } /* caché sur téléphone (§ III) */
+
+/* ===== Accueil ===== */
+.carrousel img { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; }
+.categories img,
+.produit img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
+
+.produit {
+  padding: var(--espace);
+  margin-bottom: var(--espace);
+  background: var(--couleur-surface);
+  border-radius: var(--rayon);
+}
+.prix { font-weight: bold; }
+.produit:has(.stock-rupture) img { filter: grayscale(1); }
+
+/* ===== Produit ===== */
+.ariane li { display: inline; }
+.ariane li + li::before { content: " › "; }
+.prix-fiche { font-size: var(--taille-h2); font-weight: bold; }
+.achat .btn { width: 100%; }
+.caracteristiques dt { font-weight: bold; }

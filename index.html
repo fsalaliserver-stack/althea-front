@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Althea Systems · matériel médical en ligne</title>
+  <meta name="description" content="Matériel de pointe pour cabinets médicaux, livré partout.">
+  <meta name="theme-color" content="#0F8B8D">
+  <link rel="icon" href="img/favicon.svg">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="evitement" href="#contenu">Aller au contenu</a>
+
+  <!-- En-tête : logo, panier, menu, recherche, navigation -->
+  <header class="entete">
+    <a class="logo" href="index.html">
+      <img src="img/logo.svg" alt="Althea Systems, accueil" width="160" height="40">
+    </a>
+    <a class="panier" href="panier.html">Panier
+      <span class="visually-hidden">(2 articles)</span>
+    </a>
+    <button class="menu-bouton" type="button"
+      aria-expanded="true"
+      aria-controls="menu-principal">Menu</button>
+    <form class="recherche" role="search" action="recherche.html">
+      <label for="q">Rechercher un produit</label>
+      <input id="q" name="q" type="search">
+      <button type="submit">Rechercher</button>
+    </form>
+    <nav id="menu-principal" class="menu" aria-label="Menu principal">
+      <ul class="liste-reset">
+        <li><a href="index.html" aria-current="page">Accueil</a></li>
+        <li><a href="catalogue.html">Catalogue</a></li>
+        <li><a href="compte.html">Mon compte</a></li>
+        <li><a href="cgu.html">CGU</a></li>
+        <li><a href="mentions-legales.html">Mentions légales</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Contenu propre à la page -->
+  <main id="contenu">
+    <!-- Titre principal : un seul h1 par page -->
+    <h1>Le matériel médical de pointe pour votre cabinet, livré partout</h1>
+
+    <!-- Carrousel : 3 slides -->
+    <section class="carrousel" aria-label="À la une">
+      <ul class="liste-reset">
+        <li class="slide">
+          <img src="img/slide-1.jpg" alt="Un tensiomètre électronique posé sur un bureau de médecin" width="720" height="405">
+          <p>Des appareils de diagnostic fiables pour votre cabinet.</p>
+          <a href="catalogue.html">Voir le diagnostic</a>
+        </li>
+        <li class="slide">
+          <img src="img/slide-2.jpg" alt="Du mobilier médical dans une salle de consultation" width="720" height="405" loading="lazy">
+          <p>Un mobilier pensé pour le confort des patients.</p>
+          <a href="catalogue.html">Voir le mobilier</a>
+        </li>
+        <li class="slide">
+          <img src="img/slide-3.jpg" alt="Des boîtes de consommables médicaux rangées sur une étagère" width="720" height="405" loading="lazy">
+          <p>Des consommables livrés rapidement, partout.</p>
+          <a href="catalogue.html">Voir les consommables</a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Texte de présentation -->
+    <p class="texte-fixe">Althea Systems équipe les cabinets médicaux depuis 2010. Chaque appareil est contrôlé et garanti, avec un service client disponible pour vous accompagner.</p>
+
+    <!-- Catégories : 4 liens avec image -->
+    <section class="categories" aria-labelledby="titre-categories">
+      <h2 id="titre-categories">Nos catégories</h2>
+      <ul class="liste-reset">
+        <li>
+          <a href="catalogue.html">
+            <img src="img/diagnostic.jpg" alt="" width="400" height="300" loading="lazy">
+            Diagnostic
+          </a>
+        </li>
+        <li>
+          <a href="catalogue.html">
+            <img src="img/soins.jpg" alt="" width="400" height="300" loading="lazy">
+            Soins
+          </a>
+        </li>
+        <li>
+          <a href="catalogue.html">
+            <img src="img/mobilier.jpg" alt="" width="400" height="300" loading="lazy">
+            Mobilier
+          </a>
+        </li>
+        <li>
+          <a href="catalogue.html">
+            <img src="img/consommables.jpg" alt="" width="400" height="300" loading="lazy">
+            Consommables
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Top Produits : 4 cartes -->
+    <section class="top-produits" aria-labelledby="titre-top-produits">
+      <h2 id="titre-top-produits">Les Top Produits du moment</h2>
+      <ul class="liste-reset">
+        <li>
+          <article class="produit">
+            <img src="img/tensiometre.jpg" alt="" width="400" height="300" loading="lazy">
+            <h3><a href="produit.html">Tensiomètre électronique de bras</a></h3>
+            <p class="prix"><data value="49.90">49,90 €</data></p>
+            <p class="stock stock-rupture">En rupture de stock</p>
+          </article>
+        </li>
+        <li>
+          <article class="produit">
+            <img src="img/thermometre.jpg" alt="" width="400" height="300" loading="lazy">
+            <h3><a href="produit.html">Thermomètre médical sans contact</a></h3>
+            <p class="prix"><data value="29.90">29,90 €</data></p>
+            <p class="stock">En stock</p>
+          </article>
+        </li>
+        <li>
+          <article class="produit">
+            <img src="img/table-examen.jpg" alt="" width="400" height="300" loading="lazy">
+            <h3><a href="produit.html">Table d’examen réglable</a></h3>
+            <p class="prix"><data value="349.00">349,00 €</data></p>
+            <p class="stock">En stock</p>
+          </article>
+        </li>
+        <li>
+          <article class="produit">
+            <img src="img/gants.jpg" alt="" width="400" height="300" loading="lazy">
+            <h3><a href="produit.html">Gants d’examen, boîte de 100</a></h3>
+            <p class="prix"><data value="9.90">9,90 €</data></p>
+            <p class="stock">En stock</p>
+          </article>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Pied de page : liens et copyright -->
+  <footer class="pied">
+    <ul class="liste-reset">
+      <li><a href="cgu.html">CGU</a></li>
+      <li><a href="mentions-legales.html">Mentions légales</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="https://www.linkedin.com/">LinkedIn</a></li>
+      <li><a href="https://www.instagram.com/">Instagram</a></li>
+    </ul>
+    <p>© 2026 Althea Systems</p>
+  </footer>
+</body>
+</html>

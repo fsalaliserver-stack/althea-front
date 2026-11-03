@@ -2,7 +2,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 body, h1, h2, h3, p, ul, ol, dl, dd { margin: 0; }
 img { display: block; max-width: 100%; height: auto; }
-input, button { font: inherit; }
+input, button, select { font: inherit; }
 
 /* ===== Base ===== */
 body {
@@ -17,7 +17,11 @@ h2 { font-size: var(--taille-h2); }
 h3 { font-size: var(--taille-h3); }
 p { max-width: 65ch; }
 a { color: var(--couleur-primaire); }
-main { padding: var(--espace); }
+
+/* Étape 3 : un mot très long peut se couper */
+p, h1, h2, h3, a, li, dd {
+  overflow-wrap: anywhere;
+}
 
 /* ===== Accessibilité ===== */
 :focus-visible {
@@ -62,13 +66,41 @@ main { padding: var(--espace); }
   font-weight: bold;
 }
 
-/* ===== En-tête et pied ===== */
+/* ===== Étape 2 : conteneur fluide ===== */
+main,
+.pied {
+  width: min(100% - 2rem, 70rem);
+  margin-inline: auto;
+}
+main { padding-block: var(--espace); }
+
+/* ===== Étape 3 : paliers (mobile d'abord) ===== */
+@media (min-width: 48rem) {
+  :root {
+    --espace: 1.5rem;
+    --espace-grand: 3rem;
+  }
+}
+@media (min-width: 64rem) {
+  :root {
+    --espace: 2rem;
+    --espace-grand: 4rem;
+  }
+}
+
+/* ===== Étape 4 : l'en-tête en ligne ===== */
 .entete {
-  padding: var(--espace);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espace);
+  padding: var(--espace);          /* le fond reste sur toute la largeur */
   background: var(--couleur-surface);
   border-bottom: 2px solid var(--couleur-primaire);
 }
+.entete .logo { margin-inline-end: auto; }
 .logo img { height: 40px; width: auto; }
+
 .panier { position: relative; display: inline-block; }
 .panier::after {
   content: "";
@@ -80,92 +112,31 @@ main { padding: var(--espace); }
   border-radius: 50%;
   background: var(--couleur-alerte);
 }
+
 .recherche input,
 .recherche button { min-height: var(--cible); }
-.menu a {
-  display: block;
-  min-height: var(--cible);
-  line-height: var(--cible);
-}
-.pied { display: none; } /* caché sur téléphone (§ III) */
-
-/* ===== Accueil ===== */
-.carrousel img { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; }
-.categories img,
-.produit img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
-
-.produit {
-  padding: var(--espace);
-  margin-bottom: var(--espace);
-  background: var(--couleur-surface);
-  border-radius: var(--rayon);
-}
-.prix { font-weight: bold; }
-.produit:has(.stock-rupture) img { filter: grayscale(1); }
-
-/* ===== Produit ===== */
-.ariane li { display: inline; }
-.ariane li + li::before { content: " › "; }
-.prix-fiche { font-size: var(--taille-h2); font-weight: bold; }
-.achat .btn { width: 100%; }
-
-.caracteristiques dt { font-weight: bold; }
-
-
-/* Conteneur fluide : centré, jamais plus large que 70rem */
-main,
-.pied {
-  width: min(100% - 2rem, 70rem);
-  margin-inline: auto;
-}
-
-/* L'en-tête garde son fond sur toute la largeur */
-.entete {
-  padding-inline: 1rem;
-}
-
-
-
-
-/* ===== Étape 4 : l'en-tête en ligne ===== */
-.entete {
-  display: flex;
-  flex-wrap: wrap;           /* passe à la ligne si la place manque */
-  align-items: center;       /* centré en hauteur */
-  gap: var(--espace);        /* espace entre les éléments */
-}
-
-.entete .logo {
-  margin-inline-end: auto;   /* pousse tout le reste à droite */
-}
 
 /* Téléphone : recherche et menu sur toute la ligne */
 .entete .recherche,
-.entete .menu {
-  flex-basis: 100%;
-}
+.entete .menu { flex-basis: 100%; }
 
-/* Tablette et plus : la recherche remonte sur la ligne du logo */
+/* Tablette et plus : la recherche remonte */
 @media (min-width: 48rem) {
-  .entete .recherche {
-    flex-basis: 20rem;
-  }
+  .entete .recherche { flex-basis: 20rem; }
 }
-
 
 /* ===== Étape 5 : liens du menu et du pied ===== */
 .menu ul,
 .pied ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 var(--espace);      /* 0 entre les lignes, --espace entre les liens */
+  gap: 0 var(--espace);
 }
-
 .menu a,
 .pied a {
-  display: inline-flex;      /* le lien devient une boîte */
-  align-items: center;       /* texte centré en hauteur */
-  min-height: 44px;          /* cible tactile minimum */
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cible);
 }
 
 /* ===== Étape 6 : le choix de la langue ===== */
@@ -175,24 +146,16 @@ main,
   align-items: center;
   gap: var(--espace);
 }
-
 .langues a {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
+  min-height: var(--cible);
 }
-
-.langues a[aria-current="true"] {
-  font-weight: 700;          /* la langue en cours se voit */
-}
+.langues a[aria-current="true"] { font-weight: 700; }
 
 /* ===== Étape 7 : le pied de page ===== */
-/* Téléphone et tablette : pied caché (ses liens sont dans le menu) */
-.pied {
-  display: none;
-}
+.pied { display: none; }           /* caché sur téléphone et tablette */
 
-/* Ordinateur : 3 colonnes */
 @media (min-width: 64rem) {
   .pied {
     display: grid;
@@ -200,41 +163,24 @@ main,
     gap: var(--espace);
     padding-block: var(--espace-grand);
   }
-
-  /* Dans chaque colonne, les liens l'un sous l'autre */
-  .pied ul {
-    flex-direction: column;
-  }
-
-  /* Le © prend toute la largeur */
-  .pied p {
-    grid-column: 1 / -1;
-  }
+  .pied ul { flex-direction: column; }
+  .pied p { grid-column: 1 / -1; }
 }
 
 /* ===== Étape 10 : le défilement du carrousel ===== */
 .defile {
   display: grid;
-  grid-auto-flow: column;          /* les slides côte à côte */
-  grid-auto-columns: 100%;         /* une slide = toute la largeur */
-  overflow-x: auto;                /* défile sur le côté */
-  scroll-snap-type: x mandatory;   /* sur la ZONE : aimanté */
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
 }
+.defile > li { scroll-snap-align: start; }
 
-.defile > li {
-  scroll-snap-align: start;        /* sur CHAQUE slide : où s'arrêter */
-}
-
-/* Texte posé sur l'image : même case de grille */
-.slide {
-  display: grid;
-}
-
+.slide { display: grid; }
 .slide > picture,
 .slide > img,
-.slide-texte {
-  grid-area: 1 / 1;                /* tous dans la même case = superposés */
-}
+.slide-texte { grid-area: 1 / 1; }
 
 .slide picture,
 .slide img {
@@ -245,21 +191,15 @@ main,
 }
 
 .slide-texte {
-  align-self: end;                 /* le texte en bas */
+  align-self: end;
   padding: var(--espace);
   background: linear-gradient(transparent, rgb(0 0 0 / 0.75));
-  color: #FFFFFF;
+  color: var(--couleur-sur-image);
 }
+.slide-texte a { color: var(--couleur-sur-image); }
 
-.slide-texte a {
-  color: #FFFFFF;
-}
-
-/* Défilement doux, seulement si la personne ne l'a pas refusé */
 @media (prefers-reduced-motion: no-preference) {
-  .defile {
-    scroll-behavior: smooth;
-  }
+  .defile { scroll-behavior: smooth; }
 }
 
 /* ===== Étape 11 : les pastilles ===== */
@@ -268,17 +208,15 @@ main,
   justify-content: center;
   gap: 0.25rem;
 }
-
 .pastilles a {
   display: grid;
   place-items: center;
-  min-width: 44px;                 /* zone à toucher : 44 px */
-  min-height: 44px;
+  min-width: var(--cible);
+  min-height: var(--cible);
 }
-
 .pastilles a::before {
   content: "";
-  width: 12px;                     /* le rond visible : 12 px */
+  width: 12px;
   height: 12px;
   border-radius: 50%;
   background: var(--couleur-primaire);
@@ -290,16 +228,15 @@ main,
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
   gap: var(--espace);
 }
-
 .categories a {
-  display: grid;                   /* l'image, puis le nom en dessous */
+  display: grid;
   gap: 0.5rem;
-  min-height: 44px;
+  min-height: var(--cible);
 }
-
 .categories img {
   width: 100%;
-  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
 }
 
 /* ===== Étape 13 : les cartes produit ===== */
@@ -308,61 +245,66 @@ main,
   flex-wrap: wrap;
   gap: var(--espace);
 }
-
 .top-produits li {
-  flex: 1 1 14rem;                 /* part de 14rem, grandit et rétrécit */
-  min-width: 0;                    /* le droit de rétrécir à 360 px */
+  flex: 1 1 14rem;
+  min-width: 0;
 }
 
 .produit {
   display: flex;
-  flex-direction: column;          /* image, titre, prix empilés */
-  height: 100%;                    /* toutes les cartes d'une ligne à la même hauteur */
+  flex-direction: column;
+  height: 100%;
+  padding: var(--espace);
+  background: var(--couleur-surface);
+  border-radius: var(--rayon);
 }
-
 .produit img {
   width: 100%;
-  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
 }
-
-.produit .prix {
-  margin-block-start: auto;        /* pousse le prix tout en bas */
-}
-
+.produit:has(.stock-rupture) img { filter: grayscale(1); }
+.prix { font-weight: bold; }
+.produit .prix { margin-block-start: auto; }
 
 /* ===== Étape 14 : des cartes qui réagissent ===== */
-/* Seulement si la personne n'a pas demandé moins d'animations */
 @media (prefers-reduced-motion: no-preference) {
   .produit {
     transition: transform 0.2s ease,
                 box-shadow 0.2s ease;
   }
-
   .produit:hover,
-  .produit:focus-within {            /* souris OU clavier */
-    transform: translateY(-4px);     /* la carte monte de 4 px */
+  .produit:focus-within {
+    transform: translateY(-4px);
     box-shadow: 0 6px 16px rgb(0 0 0 / 0.15);
   }
-
-  /* Les boutons changent de couleur en douceur */
   button,
-  .btn {
-    transition: background-color 0.2s ease;
-  }
+  .btn { transition: background-color 0.2s ease; }
 }
 
-
-
+/* ===== Étape 16 : le bandeau de la catégorie ===== */
+.bandeau { display: grid; }
+.bandeau > * { grid-area: 1 / 1; }
+.bandeau img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.bandeau h1 {
+  align-self: end;
+  padding: var(--espace);
+  color: var(--couleur-sur-image);
+  background: linear-gradient(transparent, rgb(0 0 0 / 0.75));
+}
 
 /* ===== Étape 17 : la liste, puis la grille ===== */
-/* Téléphone : une seule colonne */
 .produits {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);   /* ne déborde jamais */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--espace);
 }
-
-/* Tablette et plus : autant de colonnes que la place le permet */
 @media (min-width: 48rem) {
   .produits {
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
@@ -373,29 +315,33 @@ main,
 .pagination ul {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;         /* centrée */
+  justify-content: center;
   gap: 0.5rem;
   margin-block: var(--espace-grand);
 }
-
 .pagination a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 44px;                 /* assez grand pour le doigt */
-  min-height: 44px;
+  min-width: var(--cible);
+  min-height: var(--cible);
   padding-inline: 0.75rem;
   border: 1px solid var(--couleur-primaire);
   border-radius: 0.25rem;
   color: var(--couleur-primaire);
   text-decoration: none;
 }
-
-/* La page en cours : couleur primaire (suivra le mode sombre) */
 .pagination [aria-current="page"] {
   background: var(--couleur-primaire);
   color: var(--couleur-sur-primaire);
 }
+
+/* ===== Page Produit ===== */
+.ariane li { display: inline; }
+.ariane li + li::before { content: " › "; }
+.prix-fiche { font-size: var(--taille-h2); font-weight: bold; }
+.achat .btn { width: 100%; }
+.caracteristiques dt { font-weight: bold; }
 
 /* ===== Étape 19 : images du produit ===== */
 .fiche img {
@@ -414,60 +360,201 @@ main,
       "description infos";
     gap: var(--espace-grand);
   }
-
   .fiche-images      { grid-area: images; }
   .fiche-description { grid-area: description; }
   .fiche-infos {
     grid-area: infos;
     align-self: start;
-    position: sticky;              /* reste visible pendant le défilement */
+    position: sticky;
     top: var(--espace);
   }
 }
 
 /* ===== Étape 21 : la galerie (réutilise .defile) ===== */
 .galerie {
-  grid-auto-columns: 85%;          /* la photo suivante dépasse un peu */
+  grid-auto-columns: 85%;
   gap: var(--espace);
 }
 
 /* ===== Étape 23 : le tableau des tailles ===== */
-.defile-tableau {
-  overflow-x: auto;                /* le tableau défile, pas la page */
-}
+.defile-tableau { overflow-x: auto; }
 
 .tailles {
   min-width: 32rem;
   border-collapse: collapse;
 }
-
 .tailles caption {
   text-align: start;
   font-weight: 700;
   padding-block-end: 0.5rem;
 }
-
 .tailles th,
 .tailles td {
   padding: 0.5rem 1rem;
   text-align: start;
 }
-
 .tailles thead th {
   background: var(--couleur-primaire);
   color: var(--couleur-sur-primaire);
 }
-
-.tailles tbody tr:nth-child(even) {
-  background: var(--couleur-surface);
-}
-
+.tailles tbody tr:nth-child(even) { background: var(--couleur-surface); }
 .tailles tbody th {
-  position: sticky;                /* la 1re colonne reste visible */
+  position: sticky;
   inset-inline-start: 0;
   background: var(--couleur-fond);
 }
+.tailles tbody tr:nth-child(even) th { background: var(--couleur-surface); }
 
-.tailles tbody tr:nth-child(even) th {
-  background: var(--couleur-surface);
+/* ===== Étape 25 : la page Recherche ===== */
+.facettes fieldset {
+  margin: 0 0 var(--espace);
+  padding: var(--espace);
+  border: 1px solid var(--couleur-texte-discret);
+  border-radius: 0.25rem;
+}
+.facettes label {
+  display: block;
+  margin-block-end: 0.25rem;
+}
+.facettes input:not([type="checkbox"]),
+.facettes select,
+.facettes button {
+  width: 100%;
+  min-height: var(--cible);
+}
+.facettes .case {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: var(--cible);
+}
+.facettes .case label {
+  display: inline;
+  margin: 0;
+}
+.facettes input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+@media (min-width: 64rem) {
+  .recherche-avancee {
+    display: grid;
+    grid-template-columns: 18rem minmax(0, 1fr);
+    gap: var(--espace-grand);
+    align-items: start;
+  }
+}
+
+/* ===== Étape 26 : les formulaires de compte ===== */
+.formulaire {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace);
+  max-width: 30rem;
+}
+.formulaire label {
+  display: block;
+  margin-block-end: 0.25rem;
+}
+.formulaire input:not([type="checkbox"]),
+.formulaire button {
+  width: 100%;
+  min-height: var(--cible);
+  padding-inline: 0.5rem;
+  border: 1px solid var(--couleur-texte-discret);
+  border-radius: 0.25rem;
+}
+.formulaire .btn { border: 0; }
+.formulaire .case {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: var(--cible);
+}
+.formulaire .case label {
+  display: inline;
+  margin: 0;
+  flex: 1;
+}
+.formulaire input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+.aide {
+  display: block;
+  color: var(--couleur-texte-discret);
+  font-size: var(--taille-petite);
+}
+.erreur {
+  display: none;
+  flex-basis: 100%;
+  color: var(--couleur-alerte);
+  font-size: var(--taille-petite);
+}
+.formulaire input:user-invalid { border: 2px solid var(--couleur-alerte); }
+.formulaire p:has(input:user-invalid) .erreur { display: block; }
+
+
+/* ===== Étape 27 : le logo en mode sombre ===== */
+@media (prefers-color-scheme: dark) {
+  .logo img {
+    background: #FFFFFF;           /* le texte du logo est foncé */
+    border-radius: var(--rayon);
+    padding: 0.25rem 0.5rem;
+    box-sizing: content-box;
+  }
+}
+
+
+/* ===== Étape 24 : la version imprimable (toujours à la fin) ===== */
+@media print {
+  .evitement,
+  .menu-bouton,
+  .recherche,
+  .menu,
+  .panier,
+  .achat,
+  .pastilles,
+  .top-produits,
+  .pied,
+  .ariane {
+    display: none;
+  }
+
+  body,
+  .tailles thead th,
+  .tailles tbody tr,
+  .tailles tbody th {
+    color: #000;
+    background: #fff;
+  }
+
+  .fiche { display: block; }
+  .fiche-infos { position: static; }
+
+  .galerie {
+    display: block;
+    overflow: visible;
+  }
+  .galerie li + li { display: none; }
+  .galerie img { max-width: 12cm; }
+
+  .defile-tableau { overflow: visible; }
+  .tailles {
+    min-width: 0;
+    width: 100%;
+  }
+  .tailles th,
+  .tailles td { border: 1px solid #000; }
+
+  .caracteristiques,
+  .tailles-brassard,
+  table {
+    break-inside: avoid;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+  }
 }

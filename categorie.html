@@ -2,6 +2,8 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Diagnostic · Althea Systems</title>
   <meta name="description" content="Appareils de diagnostic pour cabinets médicaux : tensiomètres, thermomètres, oxymètres, stéthoscopes.">
@@ -24,7 +26,7 @@
     <button class="menu-bouton" type="button"
       aria-expanded="true"
       aria-controls="menu-principal">Menu</button>
-    <form class="recherche" role="search" action="recherche.html">
+    <form class="recherche" role="search" action="recherche.html" method="get">
       <label for="q">Rechercher un produit</label>
       <input id="q" name="q" type="search">
       <button type="submit">Rechercher</button>
@@ -138,8 +140,8 @@
     </nav>
     <nav aria-label="Réseaux sociaux">
       <ul class="liste-reset">
-        <li><a href="https://www.linkedin.com/">LinkedIn</a></li>
-        <li><a href="https://www.instagram.com/">Instagram</a></li>
+        <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn <span class="visually-hidden">(nouvel onglet)</span></a></li>
+        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram <span class="visually-hidden">(nouvel onglet)</span></a></li>
       </ul>
     </nav>
     <p>© 2026 Althea Systems</p>

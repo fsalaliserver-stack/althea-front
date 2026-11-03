@@ -396,3 +396,78 @@ main,
   background: var(--couleur-primaire);
   color: var(--couleur-sur-primaire);
 }
+
+/* ===== Étape 19 : images du produit ===== */
+.fiche img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ===== Étape 20 : la fiche en zones ===== */
+@media (min-width: 64rem) {
+  .fiche {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "images      infos"
+      "description infos";
+    gap: var(--espace-grand);
+  }
+
+  .fiche-images      { grid-area: images; }
+  .fiche-description { grid-area: description; }
+  .fiche-infos {
+    grid-area: infos;
+    align-self: start;
+    position: sticky;              /* reste visible pendant le défilement */
+    top: var(--espace);
+  }
+}
+
+/* ===== Étape 21 : la galerie (réutilise .defile) ===== */
+.galerie {
+  grid-auto-columns: 85%;          /* la photo suivante dépasse un peu */
+  gap: var(--espace);
+}
+
+/* ===== Étape 23 : le tableau des tailles ===== */
+.defile-tableau {
+  overflow-x: auto;                /* le tableau défile, pas la page */
+}
+
+.tailles {
+  min-width: 32rem;
+  border-collapse: collapse;
+}
+
+.tailles caption {
+  text-align: start;
+  font-weight: 700;
+  padding-block-end: 0.5rem;
+}
+
+.tailles th,
+.tailles td {
+  padding: 0.5rem 1rem;
+  text-align: start;
+}
+
+.tailles thead th {
+  background: var(--couleur-primaire);
+  color: var(--couleur-sur-primaire);
+}
+
+.tailles tbody tr:nth-child(even) {
+  background: var(--couleur-surface);
+}
+
+.tailles tbody th {
+  position: sticky;                /* la 1re colonne reste visible */
+  inset-inline-start: 0;
+  background: var(--couleur-fond);
+}
+
+.tailles tbody tr:nth-child(even) th {
+  background: var(--couleur-surface);
+}

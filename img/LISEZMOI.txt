@@ -1,0 +1,11 @@
+Images attendues dans ce dossier (les noms et extensions doivent correspondre au HTML) :
+
+logo.png, favicon.svg
+diagnostic.jpeg, soins.jpg, mobilier.jpg, consommables.jpg        (catégories, diagnostic.jpeg = bandeau aussi)
+tensiometre.webp, thermometre.jpeg, oxymetre.jpg, stethoscope.jpg, otoscope.jpg, electrocardiogramme.jpg
+slide-1-carre.jpg  (format carré), slide-1-large.jpg (cadrage large 16/9), slide-2.jpg, slide-3.jpg
+tensiometre-1-400.jpg, tensiometre-1-800.jpg, tensiometre-2-400.jpg, tensiometre-2-800.jpg,
+tensiometre-3-400.jpg, tensiometre-3-800.jpg                       (400 px et 800 px de large)
+
+Pour tester sans les vraies photos : copie une image existante sous chaque nom manquant.
+Si une de tes images a une autre extension, change l'extension dans le HTML.

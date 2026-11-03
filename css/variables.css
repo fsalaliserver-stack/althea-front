@@ -1,0 +1,73 @@
+/* La charte d'Althea : couleurs, police, tailles */
+
+/* ===== Mode clair par défaut ===== */
+:root {
+  color-scheme: light dark;
+
+  /* Couleurs mode clair */
+  --couleur-primaire: #0B6E70;        /* liens, boutons ; env. 5,9:1 sur blanc */
+  --couleur-primaire-fonce: #084F51;  /* survol des boutons */
+  --couleur-sur-primaire: #FFFFFF;    /* texte sur fond primaire */
+
+  --couleur-texte: #1E1E24;           /* texte courant ; env. 16:1 sur blanc */
+  --couleur-texte-discret: #55585E;   /* texte secondaire ; env. 7:1 sur blanc */
+
+  --couleur-fond: #FFFFFF;
+  --couleur-surface: #F1F6F6;         /* cartes, en-tête */
+
+  --couleur-alerte: #B3261E;          /* rupture de stock ; env. 6,5:1 sur blanc */
+  --couleur-sur-image: #FFFFFF;       /* texte posé sur une image */
+
+  /* Police : celle du système, rien à télécharger */
+  --police: system-ui, sans-serif;
+
+  /* Tailles de texte */
+  --taille-petite: 0.875rem;
+  --taille-base: 1rem;
+  --taille-h3: 1.125rem;
+  --taille-h2: 1.375rem;
+  --taille-h1: 1.75rem;
+
+  /* Espacements — téléphone par défaut */
+  --espace: 1rem;
+  --espace-grand: 2rem;
+
+  /* Forme et cibles tactiles */
+  --rayon: 8px;
+  --cible: 44px;
+}
+
+/* ===== Étape 3 — Palier tablette : à partir de 768px environ ===== */
+@media (min-width: 48rem) {
+  :root {
+    --espace: 1.5rem;
+    --espace-grand: 3rem;
+  }
+}
+
+/* ===== Étape 3 — Palier ordinateur : à partir de 1024px environ ===== */
+@media (min-width: 64rem) {
+  :root {
+    --espace: 2rem;
+    --espace-grand: 4rem;
+  }
+}
+
+/* ===== Mode sombre automatique ===== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Couleurs mode sombre */
+    --couleur-primaire: #5DD6D8;        /* primaire plus claire ; bon contraste sur fond sombre */
+    --couleur-primaire-fonce: #8BECEE;  /* survol plus clair en mode sombre */
+    --couleur-sur-primaire: #061314;    /* texte foncé sur bouton clair */
+
+    --couleur-texte: #EAF2F3;           /* texte clair */
+    --couleur-texte-discret: #C3D0D2;   /* texte secondaire lisible */
+
+    --couleur-fond: #101820;            /* fond très foncé */
+    --couleur-surface: #18262B;         /* surface un peu plus claire */
+
+    --couleur-alerte: #FFB4AB;          /* alerte plus claire en mode sombre */
+    --couleur-sur-image: #FFFFFF;       /* texte sur image reste blanc */
+  }
+}

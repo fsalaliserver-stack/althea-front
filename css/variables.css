@@ -1,26 +1,56 @@
-/* La charte d'Althea : couleurs, police, tailles */
-:root {
-  /* Couleurs (ratio de contraste à vérifier sur WebAIM) */
-  --couleur-primaire: #0B6E70;        /* liens, boutons ; env. 5,9:1 sur blanc */
-  --couleur-primaire-fonce: #084F51;  /* survol des boutons */
-  --couleur-sur-primaire: #FFFFFF;    /* texte sur fond primaire */
-  --couleur-texte: #1E1E24;           /* texte courant ; env. 16:1 sur blanc */
-  --couleur-texte-discret: #55585E;   /* texte secondaire ; env. 7:1 sur blanc */
-  --couleur-fond: #FFFFFF;
-  --couleur-surface: #F1F6F6;         /* cartes, en-tête */
-  --couleur-alerte: #B3261E;          /* rupture de stock ; env. 6,5:1 sur blanc */
+/* Charte graphique Althea Systems */
 
-  /* Police : celle du système, rien à télécharger */
+:root {
+  color-scheme: light dark;
+
+  /* Couleurs du mode clair */
+  --couleur-primaire: #0B6E70;
+  --couleur-primaire-fonce: #084F51;
+  --couleur-sur-primaire: #FFFFFF;
+
+  --couleur-texte: #1E1E24;
+  --couleur-texte-discret: #55585E;
+
+  --couleur-fond: #FFFFFF;
+  --couleur-surface: #F1F6F6;
+
+  --couleur-alerte: #B3261E;
+  --couleur-sur-image: #FFFFFF;
+
+  /* Police */
   --police: system-ui, sans-serif;
 
-  /* Tailles de texte (rem : suit le réglage de l'utilisateur) */
+  /* Tailles des textes */
   --taille-petite: 0.875rem;
   --taille-base: 1rem;
   --taille-h3: 1.125rem;
   --taille-h2: 1.375rem;
   --taille-h1: 1.75rem;
 
-  /* Espacements (valeurs du téléphone ; agrandies dans style.css) */
+  /* Espacements */
   --espace: 1rem;
   --espace-grand: 2rem;
+
+  /* Composants */
+  --cible: 44px;
+  --rayon: 0.5rem;
+}
+
+/* Mode sombre automatique */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --couleur-fond: #10191F;
+    --couleur-surface: #1C2B32;
+
+    --couleur-texte: #E7EEF0;
+    --couleur-texte-discret: #B8C7CC;
+
+    --couleur-primaire: #65C9C4;
+    --couleur-primaire-fonce: #8ADBD6;
+
+    --couleur-sur-primaire: #102326;
+
+    --couleur-alerte: #FF9B91;
+    --couleur-sur-image: #FFFFFF;
+  }
 }

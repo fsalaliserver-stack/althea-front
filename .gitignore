@@ -1,0 +1,17 @@
+# Dépendances
+node_modules/
+
+# Fichiers temporaires
+*.log
+.DS_Store
+Thumbs.db
+
+# Variables d'environnement
+.env
+.env.local
+.env.*.local
+
+# Fichiers générés
+dist/
+build/
+coverage/

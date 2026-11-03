@@ -1,37 +1,84 @@
 /* ===== Reset ===== */
-*, *::before, *::after { box-sizing: border-box; }
-body, h1, h2, h3, p, ul, ol, dl, dd { margin: 0; }
-img { display: block; max-width: 100%; height: auto; }
-input, button { font: inherit; }
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body, h1, h2, h3, p, ul, ol, dl, dd {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input, button, select {
+  font: inherit;
+}
 
 /* ===== Base ===== */
+
 body {
   font-family: var(--police);
   font-size: var(--taille-base);
   line-height: 1.5;
   color: var(--couleur-texte);
   background: var(--couleur-fond);
+  overflow-wrap: anywhere;
 }
+
 h1 { font-size: var(--taille-h1); }
 h2 { font-size: var(--taille-h2); }
 h3 { font-size: var(--taille-h3); }
-p { max-width: 65ch; }
-a { color: var(--couleur-primaire); }
-main { padding: var(--espace); }
+
+h1, h2, h3 {
+  line-height: 1.3;
+}
+
+p {
+  max-width: 65ch;
+}
+
+a {
+  color: var(--couleur-primaire);
+}
+
+main {
+  padding-block: var(--espace);
+}
+
+main > h1,
+main > h2,
+section > h2 {
+  margin-block-end: var(--espace);
+}
+
+section {
+  margin-block-end: var(--espace-grand);
+}
 
 /* ===== Accessibilité ===== */
+
 :focus-visible {
   outline: 3px solid var(--couleur-primaire);
   outline-offset: 3px;
 }
+
 .evitement {
   position: absolute;
   top: -100px;
   left: var(--espace);
+  z-index: 10;
   background: var(--couleur-fond);
   padding: var(--espace);
 }
-.evitement:focus { top: var(--espace); }
+
+.evitement:focus {
+  top: var(--espace);
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -41,35 +88,82 @@ main { padding: var(--espace); }
   white-space: nowrap;
 }
 
-/* ===== Composants communs ===== */
-.liste-reset { list-style: none; padding: 0; }
+/* ===== Listes ===== */
+
+.liste-reset {
+  list-style: none;
+  padding: 0;
+}
+
+/* ===== Boutons ===== */
+
+button,
 .btn {
   min-height: var(--cible);
-  padding: 0 var(--espace);
+  padding-inline: var(--espace);
   border: 0;
   border-radius: var(--rayon);
   background: var(--couleur-primaire);
   color: var(--couleur-sur-primaire);
+  cursor: pointer;
 }
-.btn:hover:not(:disabled) { background: var(--couleur-primaire-fonce); }
+
+button:hover:not(:disabled),
+.btn:hover:not(:disabled) {
+  background: var(--couleur-primaire-fonce);
+}
+
+button:disabled,
 .btn:disabled {
   background: var(--couleur-surface);
   color: var(--couleur-texte-discret);
   border: 2px dashed var(--couleur-texte-discret);
+  cursor: not-allowed;
 }
+
+/* ===== Stock ===== */
+
 .stock-rupture {
   color: var(--couleur-alerte);
   font-weight: bold;
 }
 
-/* ===== En-tête et pied ===== */
+/* ===== Conteneur fluide ===== */
+
+main,
+.pied {
+  width: min(100% - 2rem, 70rem);
+  margin-inline: auto;
+}
+
+/* ===== En-tête ===== */
+
 .entete {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espace);
   padding: var(--espace);
   background: var(--couleur-surface);
   border-bottom: 2px solid var(--couleur-primaire);
 }
-.logo img { height: 40px; width: auto; }
-.panier { position: relative; display: inline-block; }
+
+.logo {
+  margin-inline-end: auto;
+}
+
+.logo img {
+  height: 40px;
+  width: auto;
+}
+
+.panier {
+  position: relative;
+  display: inline-block;
+  min-height: 44px;
+  padding-block: 0.5rem;
+}
+
 .panier::after {
   content: "";
   position: absolute;
@@ -80,100 +174,63 @@ main { padding: var(--espace); }
   border-radius: 50%;
   background: var(--couleur-alerte);
 }
-.recherche input,
-.recherche button { min-height: var(--cible); }
-.menu a {
-  display: block;
-  min-height: var(--cible);
-  line-height: var(--cible);
-}
-.pied { display: none; } /* caché sur téléphone (§ III) */
 
-/* ===== Accueil ===== */
-.carrousel img { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; }
-.categories img,
-.produit img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
-
-.produit {
-  padding: var(--espace);
-  margin-bottom: var(--espace);
-  background: var(--couleur-surface);
-  border-radius: var(--rayon);
-}
-.prix { font-weight: bold; }
-.produit:has(.stock-rupture) img { filter: grayscale(1); }
-
-/* ===== Produit ===== */
-.ariane li { display: inline; }
-.ariane li + li::before { content: " › "; }
-.prix-fiche { font-size: var(--taille-h2); font-weight: bold; }
-.achat .btn { width: 100%; }
-
-.caracteristiques dt { font-weight: bold; }
-
-
-/* Conteneur fluide : centré, jamais plus large que 70rem */
-main,
-.pied {
-  width: min(100% - 2rem, 70rem);
-  margin-inline: auto;
+.menu-bouton {
+  min-height: 44px;
 }
 
-/* L'en-tête garde son fond sur toute la largeur */
-.entete {
-  padding-inline: 1rem;
-}
+/* Recherche de l'en-tête */
 
-
-
-
-/* ===== Étape 4 : l'en-tête en ligne ===== */
-.entete {
-  display: flex;
-  flex-wrap: wrap;           /* passe à la ligne si la place manque */
-  align-items: center;       /* centré en hauteur */
-  gap: var(--espace);        /* espace entre les éléments */
-}
-
-.entete .logo {
-  margin-inline-end: auto;   /* pousse tout le reste à droite */
-}
-
-/* Téléphone : recherche et menu sur toute la ligne */
 .entete .recherche,
 .entete .menu {
   flex-basis: 100%;
 }
 
-/* Tablette et plus : la recherche remonte sur la ligne du logo */
-@media (min-width: 48rem) {
-  .entete .recherche {
-    flex-basis: 20rem;
-  }
+.recherche {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
 }
 
+.recherche label {
+  flex-basis: 100%;
+}
 
-/* ===== Étape 5 : liens du menu et du pied ===== */
+.recherche input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+}
+
+/* Menu */
+
 .menu ul,
 .pied ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 var(--espace);      /* 0 entre les lignes, --espace entre les liens */
+  gap: 0 var(--espace);
 }
 
 .menu a,
 .pied a {
-  display: inline-flex;      /* le lien devient une boîte */
-  align-items: center;       /* texte centré en hauteur */
-  min-height: 44px;          /* cible tactile minimum */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
-/* ===== Étape 6 : le choix de la langue ===== */
+.menu a[aria-current="page"] {
+  font-weight: bold;
+}
+
+/* Langues */
+
 .langues {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--espace);
+  margin-block-start: 0.5rem;
 }
 
 .langues a {
@@ -183,49 +240,86 @@ main,
 }
 
 .langues a[aria-current="true"] {
-  font-weight: 700;          /* la langue en cours se voit */
+  font-weight: 700;
 }
 
-/* ===== Étape 7 : le pied de page ===== */
-/* Téléphone et tablette : pied caché (ses liens sont dans le menu) */
+/* Pied de page */
+
 .pied {
   display: none;
 }
 
-/* Ordinateur : 3 colonnes */
-@media (min-width: 64rem) {
-  .pied {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--espace);
-    padding-block: var(--espace-grand);
-  }
+/* ===== Accueil ===== */
 
-  /* Dans chaque colonne, les liens l'un sous l'autre */
-  .pied ul {
-    flex-direction: column;
-  }
-
-  /* Le © prend toute la largeur */
-  .pied p {
-    grid-column: 1 / -1;
-  }
+.carrousel {
+  margin-block: var(--espace-grand);
 }
 
-/* ===== Étape 10 : le défilement du carrousel ===== */
+.carrousel img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  width: 100%;
+}
+
+.texte-fixe {
+  margin-block: var(--espace-grand);
+}
+
+.categories img,
+.produit img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* ===== Conteneur des produits ===== */
+
+.produit {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--espace);
+  background: var(--couleur-surface);
+  border-radius: var(--rayon);
+}
+
+.prix {
+  font-weight: bold;
+  margin-block-start: auto;
+}
+
+.produit:has(.stock-rupture) img {
+  filter: grayscale(1);
+}
+
+/* ===== Fil d'Ariane ===== */
+
+.ariane {
+  margin-block-end: var(--espace);
+}
+
+.ariane li {
+  display: inline;
+}
+
+.ariane li + li::before {
+  content: " › ";
+}
+
+/* ===== Carrousel : défilement ===== */
+
 .defile {
   display: grid;
-  grid-auto-flow: column;          /* les slides côte à côte */
-  grid-auto-columns: 100%;         /* une slide = toute la largeur */
-  overflow-x: auto;                /* défile sur le côté */
-  scroll-snap-type: x mandatory;   /* sur la ZONE : aimanté */
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
 }
 
 .defile > li {
-  scroll-snap-align: start;        /* sur CHAQUE slide : où s'arrêter */
+  scroll-snap-align: start;
 }
 
-/* Texte posé sur l'image : même case de grille */
 .slide {
   display: grid;
 }
@@ -233,7 +327,7 @@ main,
 .slide > picture,
 .slide > img,
 .slide-texte {
-  grid-area: 1 / 1;                /* tous dans la même case = superposés */
+  grid-area: 1 / 1;
 }
 
 .slide picture,
@@ -245,24 +339,29 @@ main,
 }
 
 .slide-texte {
-  align-self: end;                 /* le texte en bas */
+  align-self: end;
   padding: var(--espace);
-  background: linear-gradient(transparent, rgb(0 0 0 / 0.75));
-  color: #FFFFFF;
+  background: linear-gradient(
+    transparent,
+    rgb(0 0 0 / 0.75)
+  );
+  color: var(--couleur-sur-image);
 }
 
 .slide-texte a {
-  color: #FFFFFF;
+  color: var(--couleur-sur-image);
 }
 
-/* Défilement doux, seulement si la personne ne l'a pas refusé */
+/* Défilement doux */
+
 @media (prefers-reduced-motion: no-preference) {
   .defile {
     scroll-behavior: smooth;
   }
 }
 
-/* ===== Étape 11 : les pastilles ===== */
+/* ===== Pastilles ===== */
+
 .pastilles {
   display: flex;
   justify-content: center;
@@ -272,29 +371,35 @@ main,
 .pastilles a {
   display: grid;
   place-items: center;
-  min-width: 44px;                 /* zone à toucher : 44 px */
+  min-width: 44px;
   min-height: 44px;
 }
 
 .pastilles a::before {
   content: "";
-  width: 12px;                     /* le rond visible : 12 px */
+  width: 12px;
   height: 12px;
   border-radius: 50%;
   background: var(--couleur-primaire);
 }
 
-/* ===== Étape 12 : les catégories en grille adaptative ===== */
+/* ===== Catégories ===== */
+
 .categories ul {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, 9rem), 1fr)
+  );
   gap: var(--espace);
 }
 
 .categories a {
-  display: grid;                   /* l'image, puis le nom en dessous */
+  display: grid;
   gap: 0.5rem;
   min-height: 44px;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .categories img {
@@ -302,7 +407,8 @@ main,
   height: auto;
 }
 
-/* ===== Étape 13 : les cartes produit ===== */
+/* ===== Top produits ===== */
+
 .top-produits ul {
   display: flex;
   flex-wrap: wrap;
@@ -310,14 +416,8 @@ main,
 }
 
 .top-produits li {
-  flex: 1 1 14rem;                 /* part de 14rem, grandit et rétrécit */
-  min-width: 0;                    /* le droit de rétrécir à 360 px */
-}
-
-.produit {
-  display: flex;
-  flex-direction: column;          /* image, titre, prix empilés */
-  height: 100%;                    /* toutes les cartes d'une ligne à la même hauteur */
+  flex: 1 1 14rem;
+  min-width: 0;
 }
 
 .produit img {
@@ -325,13 +425,8 @@ main,
   height: auto;
 }
 
-.produit .prix {
-  margin-block-start: auto;        /* pousse le prix tout en bas */
-}
+/* Animation des cartes */
 
-
-/* ===== Étape 14 : des cartes qui réagissent ===== */
-/* Seulement si la personne n'a pas demandé moins d'animations */
 @media (prefers-reduced-motion: no-preference) {
   .produit {
     transition: transform 0.2s ease,
@@ -339,41 +434,59 @@ main,
   }
 
   .produit:hover,
-  .produit:focus-within {            /* souris OU clavier */
-    transform: translateY(-4px);     /* la carte monte de 4 px */
+  .produit:focus-within {
+    transform: translateY(-4px);
     box-shadow: 0 6px 16px rgb(0 0 0 / 0.15);
   }
 
-  /* Les boutons changent de couleur en douceur */
   button,
   .btn {
     transition: background-color 0.2s ease;
   }
 }
 
+/* ===== Bandeau catégorie ===== */
 
+.bandeau {
+  display: grid;
+  overflow: hidden;
+  border-radius: var(--rayon);
+}
 
+.bandeau > * {
+  grid-area: 1 / 1;
+}
 
-/* ===== Étape 17 : la liste, puis la grille ===== */
-/* Téléphone : une seule colonne */
+.bandeau img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.bandeau h1 {
+  align-self: end;
+  padding: var(--espace);
+  background: linear-gradient(
+    transparent,
+    rgb(0 0 0 / 0.75)
+  );
+  color: var(--couleur-sur-image);
+}
+
+/* ===== Liste puis grille ===== */
+
 .produits {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);   /* ne déborde jamais */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--espace);
 }
 
-/* Tablette et plus : autant de colonnes que la place le permet */
-@media (min-width: 48rem) {
-  .produits {
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
-  }
-}
+/* ===== Pagination ===== */
 
-/* ===== Étape 18 : la pagination ===== */
 .pagination ul {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;         /* centrée */
+  justify-content: center;
   gap: 0.5rem;
   margin-block: var(--espace-grand);
 }
@@ -382,62 +495,69 @@ main,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 44px;                 /* assez grand pour le doigt */
+  min-width: 44px;
   min-height: 44px;
   padding-inline: 0.75rem;
   border: 1px solid var(--couleur-primaire);
-  border-radius: 0.25rem;
+  border-radius: var(--rayon);
   color: var(--couleur-primaire);
   text-decoration: none;
 }
 
-/* La page en cours : couleur primaire (suivra le mode sombre) */
 .pagination [aria-current="page"] {
   background: var(--couleur-primaire);
   color: var(--couleur-sur-primaire);
 }
 
-/* ===== Étape 19 : images du produit ===== */
+/* ===== Fiche produit ===== */
+
+.prix-fiche {
+  font-size: var(--taille-h2);
+  font-weight: bold;
+}
+
+.achat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.achat input {
+  min-height: 44px;
+}
+
+.achat .btn {
+  width: 100%;
+}
+
+.caracteristiques dt {
+  font-weight: bold;
+}
+
+/* Images de la fiche */
+
 .fiche img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-/* ===== Étape 20 : la fiche en zones ===== */
-@media (min-width: 64rem) {
-  .fiche {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-areas:
-      "images      infos"
-      "description infos";
-    gap: var(--espace-grand);
-  }
+/* Galerie */
 
-  .fiche-images      { grid-area: images; }
-  .fiche-description { grid-area: description; }
-  .fiche-infos {
-    grid-area: infos;
-    align-self: start;
-    position: sticky;              /* reste visible pendant le défilement */
-    top: var(--espace);
-  }
-}
-
-/* ===== Étape 21 : la galerie (réutilise .defile) ===== */
 .galerie {
-  grid-auto-columns: 85%;          /* la photo suivante dépasse un peu */
+  grid-auto-columns: 85%;
   gap: var(--espace);
 }
 
-/* ===== Étape 23 : le tableau des tailles ===== */
+/* ===== Tableau des tailles ===== */
+
 .defile-tableau {
-  overflow-x: auto;                /* le tableau défile, pas la page */
+  overflow-x: auto;
 }
 
 .tailles {
   min-width: 32rem;
+  width: 100%;
   border-collapse: collapse;
 }
 
@@ -463,11 +583,289 @@ main,
 }
 
 .tailles tbody th {
-  position: sticky;                /* la 1re colonne reste visible */
+  position: sticky;
   inset-inline-start: 0;
   background: var(--couleur-fond);
 }
 
 .tailles tbody tr:nth-child(even) th {
   background: var(--couleur-surface);
+}
+
+/* ===== Recherche avancée ===== */
+
+.recherche-avancee {
+  display: block;
+}
+
+.facettes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace);
+  padding: var(--espace);
+  background: var(--couleur-surface);
+  border-radius: var(--rayon);
+}
+
+.facettes p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.facettes fieldset {
+  border: 1px solid var(--couleur-texte-discret);
+  border-radius: var(--rayon);
+  padding: var(--espace);
+}
+
+.facettes legend {
+  font-weight: bold;
+}
+
+.facettes input:not([type="checkbox"]),
+.facettes select {
+  width: 100%;
+  min-height: 44px;
+}
+
+.facettes input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.resultats {
+  min-width: 0;
+  margin-block-start: var(--espace-grand);
+}
+
+/* ===== Formulaires de compte ===== */
+
+.formulaire {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espace);
+  width: min(100%, 30rem);
+  margin-inline: auto;
+  padding: var(--espace);
+  background: var(--couleur-surface);
+  border-radius: var(--rayon);
+}
+
+.formulaire p {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formulaire input:not([type="checkbox"]) {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.5rem;
+  border: 1px solid var(--couleur-texte-discret);
+  border-radius: 0.25rem;
+  background: var(--couleur-fond);
+  color: var(--couleur-texte);
+}
+
+.formulaire input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.formulaire p:has(input[type="checkbox"]) {
+  flex-direction: row;
+  align-items: center;
+}
+
+.formulaire button {
+  width: 100%;
+}
+
+.aide {
+  color: var(--couleur-texte-discret);
+  font-size: var(--taille-petite);
+}
+
+.erreur {
+  display: none;
+  color: var(--couleur-alerte);
+  font-size: var(--taille-petite);
+  font-weight: bold;
+}
+
+.formulaire input:user-invalid {
+  border: 2px solid var(--couleur-alerte);
+}
+
+.formulaire p:has(input:user-invalid) .erreur {
+  display: block;
+}
+
+/* ===== Points de rupture ===== */
+
+@media (min-width: 48rem) {
+
+  :root {
+    --espace: 1.5rem;
+    --espace-grand: 3rem;
+  }
+
+  .entete .recherche {
+    flex-basis: 20rem;
+  }
+
+  .produits {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(min(100%, 16rem), 1fr)
+    );
+  }
+
+}
+
+/* ===== Ordinateur ===== */
+
+@media (min-width: 64rem) {
+
+  :root {
+    --espace: 2rem;
+    --espace-grand: 4rem;
+  }
+
+  /* Pied en trois colonnes */
+
+  .pied {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--espace);
+    padding-block: var(--espace-grand);
+  }
+
+  .pied ul {
+    flex-direction: column;
+  }
+
+  .pied p {
+    grid-column: 1 / -1;
+  }
+
+  /* Catégorie */
+
+  .produits {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(min(100%, 16rem), 1fr)
+    );
+  }
+
+  /* Fiche produit en deux colonnes */
+
+  .fiche {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "images infos"
+      "description infos";
+    gap: var(--espace-grand);
+  }
+
+  .fiche-images {
+    grid-area: images;
+  }
+
+  .fiche-infos {
+    grid-area: infos;
+    align-self: start;
+    position: sticky;
+    top: var(--espace);
+  }
+
+  .fiche-description {
+    grid-area: description;
+  }
+
+  /* Recherche : filtres à gauche */
+
+  .recherche-avancee {
+    display: grid;
+    grid-template-columns: 18rem minmax(0, 1fr);
+    gap: var(--espace-grand);
+  }
+
+  .resultats {
+    margin-block-start: 0;
+  }
+
+}
+
+/* ===== Mode sombre : logo ===== */
+
+@media (prefers-color-scheme: dark) {
+  .logo {
+    background: #FFFFFF;
+    border-radius: var(--rayon);
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* ===== Version imprimable ===== */
+
+@media print {
+
+  .evitement,
+  .entete,
+  .pied,
+  .achat,
+  .pastilles,
+  .pagination,
+  .top-produits,
+  .ariane,
+  button {
+    display: none !important;
+  }
+
+  body {
+    color: #000000;
+    background: #FFFFFF;
+  }
+
+  main {
+    width: 100%;
+    padding: 0;
+  }
+
+  .fiche {
+    display: block;
+  }
+
+  .fiche-images {
+    display: block;
+  }
+
+  .galerie {
+    display: block;
+    overflow: visible;
+  }
+
+  .galerie li:not(:first-child) {
+    display: none;
+  }
+
+  .tailles,
+  .caracteristiques,
+  .fiche-description {
+    break-inside: avoid;
+  }
+
+  .bandeau h1,
+  .slide-texte {
+    color: #000000;
+    background: none;
+  }
+
+  a[href^="https"]::after {
+    content: " (" attr(href) ")";
+  }
 }

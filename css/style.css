@@ -108,4 +108,291 @@ main { padding: var(--espace); }
 .ariane li + li::before { content: " › "; }
 .prix-fiche { font-size: var(--taille-h2); font-weight: bold; }
 .achat .btn { width: 100%; }
+
 .caracteristiques dt { font-weight: bold; }
+
+
+/* Conteneur fluide : centré, jamais plus large que 70rem */
+main,
+.pied {
+  width: min(100% - 2rem, 70rem);
+  margin-inline: auto;
+}
+
+/* L'en-tête garde son fond sur toute la largeur */
+.entete {
+  padding-inline: 1rem;
+}
+
+
+
+
+/* ===== Étape 4 : l'en-tête en ligne ===== */
+.entete {
+  display: flex;
+  flex-wrap: wrap;           /* passe à la ligne si la place manque */
+  align-items: center;       /* centré en hauteur */
+  gap: var(--espace);        /* espace entre les éléments */
+}
+
+.entete .logo {
+  margin-inline-end: auto;   /* pousse tout le reste à droite */
+}
+
+/* Téléphone : recherche et menu sur toute la ligne */
+.entete .recherche,
+.entete .menu {
+  flex-basis: 100%;
+}
+
+/* Tablette et plus : la recherche remonte sur la ligne du logo */
+@media (min-width: 48rem) {
+  .entete .recherche {
+    flex-basis: 20rem;
+  }
+}
+
+
+/* ===== Étape 5 : liens du menu et du pied ===== */
+.menu ul,
+.pied ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--espace);      /* 0 entre les lignes, --espace entre les liens */
+}
+
+.menu a,
+.pied a {
+  display: inline-flex;      /* le lien devient une boîte */
+  align-items: center;       /* texte centré en hauteur */
+  min-height: 44px;          /* cible tactile minimum */
+}
+
+/* ===== Étape 6 : le choix de la langue ===== */
+.langues {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espace);
+}
+
+.langues a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.langues a[aria-current="true"] {
+  font-weight: 700;          /* la langue en cours se voit */
+}
+
+/* ===== Étape 7 : le pied de page ===== */
+/* Téléphone et tablette : pied caché (ses liens sont dans le menu) */
+.pied {
+  display: none;
+}
+
+/* Ordinateur : 3 colonnes */
+@media (min-width: 64rem) {
+  .pied {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--espace);
+    padding-block: var(--espace-grand);
+  }
+
+  /* Dans chaque colonne, les liens l'un sous l'autre */
+  .pied ul {
+    flex-direction: column;
+  }
+
+  /* Le © prend toute la largeur */
+  .pied p {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ===== Étape 10 : le défilement du carrousel ===== */
+.defile {
+  display: grid;
+  grid-auto-flow: column;          /* les slides côte à côte */
+  grid-auto-columns: 100%;         /* une slide = toute la largeur */
+  overflow-x: auto;                /* défile sur le côté */
+  scroll-snap-type: x mandatory;   /* sur la ZONE : aimanté */
+}
+
+.defile > li {
+  scroll-snap-align: start;        /* sur CHAQUE slide : où s'arrêter */
+}
+
+/* Texte posé sur l'image : même case de grille */
+.slide {
+  display: grid;
+}
+
+.slide > picture,
+.slide > img,
+.slide-texte {
+  grid-area: 1 / 1;                /* tous dans la même case = superposés */
+}
+
+.slide picture,
+.slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slide-texte {
+  align-self: end;                 /* le texte en bas */
+  padding: var(--espace);
+  background: linear-gradient(transparent, rgb(0 0 0 / 0.75));
+  color: #FFFFFF;
+}
+
+.slide-texte a {
+  color: #FFFFFF;
+}
+
+/* Défilement doux, seulement si la personne ne l'a pas refusé */
+@media (prefers-reduced-motion: no-preference) {
+  .defile {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ===== Étape 11 : les pastilles ===== */
+.pastilles {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.pastilles a {
+  display: grid;
+  place-items: center;
+  min-width: 44px;                 /* zone à toucher : 44 px */
+  min-height: 44px;
+}
+
+.pastilles a::before {
+  content: "";
+  width: 12px;                     /* le rond visible : 12 px */
+  height: 12px;
+  border-radius: 50%;
+  background: var(--couleur-primaire);
+}
+
+/* ===== Étape 12 : les catégories en grille adaptative ===== */
+.categories ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  gap: var(--espace);
+}
+
+.categories a {
+  display: grid;                   /* l'image, puis le nom en dessous */
+  gap: 0.5rem;
+  min-height: 44px;
+}
+
+.categories img {
+  width: 100%;
+  height: auto;
+}
+
+/* ===== Étape 13 : les cartes produit ===== */
+.top-produits ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espace);
+}
+
+.top-produits li {
+  flex: 1 1 14rem;                 /* part de 14rem, grandit et rétrécit */
+  min-width: 0;                    /* le droit de rétrécir à 360 px */
+}
+
+.produit {
+  display: flex;
+  flex-direction: column;          /* image, titre, prix empilés */
+  height: 100%;                    /* toutes les cartes d'une ligne à la même hauteur */
+}
+
+.produit img {
+  width: 100%;
+  height: auto;
+}
+
+.produit .prix {
+  margin-block-start: auto;        /* pousse le prix tout en bas */
+}
+
+
+/* ===== Étape 14 : des cartes qui réagissent ===== */
+/* Seulement si la personne n'a pas demandé moins d'animations */
+@media (prefers-reduced-motion: no-preference) {
+  .produit {
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+  }
+
+  .produit:hover,
+  .produit:focus-within {            /* souris OU clavier */
+    transform: translateY(-4px);     /* la carte monte de 4 px */
+    box-shadow: 0 6px 16px rgb(0 0 0 / 0.15);
+  }
+
+  /* Les boutons changent de couleur en douceur */
+  button,
+  .btn {
+    transition: background-color 0.2s ease;
+  }
+}
+
+
+
+
+/* ===== Étape 17 : la liste, puis la grille ===== */
+/* Téléphone : une seule colonne */
+.produits {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);   /* ne déborde jamais */
+  gap: var(--espace);
+}
+
+/* Tablette et plus : autant de colonnes que la place le permet */
+@media (min-width: 48rem) {
+  .produits {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  }
+}
+
+/* ===== Étape 18 : la pagination ===== */
+.pagination ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;         /* centrée */
+  gap: 0.5rem;
+  margin-block: var(--espace-grand);
+}
+
+.pagination a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;                 /* assez grand pour le doigt */
+  min-height: 44px;
+  padding-inline: 0.75rem;
+  border: 1px solid var(--couleur-primaire);
+  border-radius: 0.25rem;
+  color: var(--couleur-primaire);
+  text-decoration: none;
+}
+
+/* La page en cours : couleur primaire (suivra le mode sombre) */
+.pagination [aria-current="page"] {
+  background: var(--couleur-primaire);
+  color: var(--couleur-sur-primaire);
+}

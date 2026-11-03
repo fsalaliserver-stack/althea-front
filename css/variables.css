@@ -1,30 +1,43 @@
-/* La charte d'Althea : couleurs, police, tailles */
+/* ===== Charte Althea Systems ===== */
 :root {
-  /* Couleurs (ratio de contraste à vérifier sur WebAIM) */
-  --couleur-primaire: #0B6E70;        /* liens, boutons ; env. 5,9:1 sur blanc */
-  --couleur-primaire-fonce: #084F51;  /* survol des boutons */
-  --couleur-sur-primaire: #FFFFFF;    /* texte sur fond primaire */
-  --couleur-texte: #1E1E24;           /* texte courant ; env. 16:1 sur blanc */
-  --couleur-texte-discret: #55585E;   /* texte secondaire ; env. 7:1 sur blanc */
+  color-scheme: light dark; /* champs, cases et barres de défilement suivent le mode */
+
+  /* Couleurs (mode clair) : ratios à vérifier sur WebAIM Contrast Checker */
+  --couleur-primaire: #0B6E70;         /* liens, boutons ; ≈ 6,0:1 sur fond */
+  --couleur-primaire-fonce: #07494B;   /* survol du bouton ; ≈ 10:1 sur fond */
+  --couleur-sur-primaire: #FFFFFF;     /* texte du bouton ; ≈ 6,0:1 sur primaire */
+  --couleur-texte: #1B2A33;            /* texte courant ; ≈ 14,7:1 sur fond */
+  --couleur-texte-discret: #4A5A63;    /* texte secondaire ; ≈ 7,2:1 sur fond, ≈ 6,5:1 sur surface */
   --couleur-fond: #FFFFFF;
-  --couleur-surface: #F1F6F6;         /* cartes, en-tête */
-  --couleur-alerte: #B3261E;          /* rupture de stock ; env. 6,5:1 sur blanc */
+  --couleur-surface: #EEF4F5;          /* cartes, en-tête */
+  --couleur-alerte: #B3261E;           /* rupture, erreurs ; ≈ 6,5:1 sur fond, ≈ 5,9:1 sur surface */
+  --couleur-sur-image: #FFFFFF;        /* texte posé sur une photo (dégradé noir) */
 
-  /* Police : celle du système, rien à télécharger */
+  /* Typographie */
   --police: system-ui, sans-serif;
-
-  /* Tailles de texte (rem : suit le réglage de l'utilisateur) */
-  --taille-petite: 0.875rem;
   --taille-base: 1rem;
-  --taille-h3: 1.125rem;
-  --taille-h2: 1.375rem;
   --taille-h1: 1.75rem;
+  --taille-h2: 1.375rem;
+  --taille-h3: 1.125rem;
 
-  /* Espacements */
+  /* Espaces, arrondi, cible tactile */
   --espace: 1rem;
-  --espace-grand: 2rem;
-
-  /* Forme et cibles tactiles */
-  --rayon: 8px;
+  --rayon: 0.5rem;
   --cible: 44px;
+}
+
+/*  Mode sombre  */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --couleur-fond: #10191A;
+    --couleur-surface: #1C2A2B;
+    --couleur-texte: #E8EEEE;           /* 15,2:1 sur fond ; 12,6:1 sur surface */
+    --couleur-texte-discret: #A9B6B7;   /* 8,6:1 sur fond ; 7,1:1 sur surface */
+    --couleur-primaire: #5CC8CA;        /* 9,0:1 sur fond ; 7,5:1 sur surface */
+    --couleur-primaire-fonce: #8ADBDC;  /* survol : plus clair en mode sombre */
+    --couleur-sur-primaire: #0B1A1B;    /* texte du bouton foncé ; 9,0:1 sur primaire */
+    --couleur-alerte: #FF8A80;          /* 7,8:1 sur fond ; 6,5:1 sur surface */
+    
+  }
+
 }

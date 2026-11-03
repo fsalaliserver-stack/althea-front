@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recherche · Althea Systems</title>
+  <meta name="description" content="Recherchez un produit Althea Systems par nom, prix ou catégorie.">
+  <meta name="theme-color" content="#0F8B8D">
+  <link rel="icon" href="img/logo.png">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="evitement" href="#contenu">Aller au contenu</a>
+
+  <header class="entete">
+    <a class="logo" href="index.html">
+      <img src="img/logo.png" alt="Althea Systems, accueil" width="160" height="40">
+    </a>
+    <a class="panier" href="panier.html">Panier
+      <span class="visually-hidden">(2 articles)</span>
+    </a>
+    <button class="menu-bouton" type="button"
+      aria-expanded="true"
+      aria-controls="menu-principal">Menu</button>
+    <form class="recherche" role="search" action="recherche.html" method="get">
+      <label for="q">Rechercher un produit</label>
+      <input id="q" name="q" type="search">
+      <button type="submit">Rechercher</button>
+    </form>
+    <nav id="menu-principal" class="menu" aria-label="Menu principal">
+      <ul class="liste-reset">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="categorie.html">Diagnostic</a></li>
+        <li><a href="connexion.html">Se connecter</a></li>
+        <li><a href="inscription.html">S'inscrire</a></li>
+        <li><a href="cgu.html">CGU</a></li>
+        <li><a href="mentions-legales.html">Mentions légales</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="a-propos.html">À propos d'Althea Systems</a></li>
+      </ul>
+      <p class="langues">Langue :
+        <a href="recherche.html" lang="fr" hreflang="fr" aria-current="true">Français</a>
+        <a href="en/index.html" lang="en" hreflang="en">English</a>
+        <a href="ar/index.html" lang="ar" hreflang="ar" dir="rtl">العربية</a>
+      </p>
+    </nav>
+  </header>
+
+  <main id="contenu">
+        <h1>Rechercher un produit</h1>
+
+    <div class="recherche-avancee">
+      <form class="facettes" action="recherche.html" method="get">
+        <p>
+          <label for="f-nom">Nom</label>
+          <input id="f-nom" name="nom" type="search">
+        </p>
+        <p>
+          <label for="f-description">Description</label>
+          <input id="f-description" name="description" type="search">
+        </p>
+        <p>
+          <label for="f-caracteristique">Caractéristique</label>
+          <input id="f-caracteristique" name="caracteristique" type="search">
+        </p>
+
+        <fieldset>
+          <legend>Prix en euros</legend>
+          <p>
+            <label for="f-min">Minimum</label>
+            <input id="f-min" name="prixMin" type="number" min="0">
+          </p>
+          <p>
+            <label for="f-max">Maximum</label>
+            <input id="f-max" name="prixMax" type="number" min="0">
+          </p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Catégories</legend>
+          <p><input id="c-diagnostic" type="checkbox" name="categorie[]" value="diagnostic">
+             <label for="c-diagnostic">Diagnostic</label></p>
+          <p><input id="c-soins" type="checkbox" name="categorie[]" value="soins">
+             <label for="c-soins">Soins</label></p>
+          <p><input id="c-mobilier" type="checkbox" name="categorie[]" value="mobilier">
+             <label for="c-mobilier">Mobilier</label></p>
+          <p><input id="c-consommables" type="checkbox" name="categorie[]" value="consommables">
+             <label for="c-consommables">Consommables</label></p>
+        </fieldset>
+
+        <p>
+          <input id="f-dispo" type="checkbox" name="disponibles" value="1">
+          <label for="f-dispo">Disponibles seulement</label>
+        </p>
+
+        <p>
+          <label for="f-tri">Trier par</label>
+          <select id="f-tri" name="tri">
+            <option value="prix-croissant">Prix croissant</option>
+            <option value="prix-decroissant">Prix décroissant</option>
+            <option value="nouveaute">Nouveauté</option>
+            <option value="disponibilite">Disponibilité</option>
+          </select>
+        </p>
+
+        <button class="btn" type="submit">Rechercher</button>
+      </form>
+
+      <section class="resultats">
+        <h2>Résultats : 6 produits</h2>
+        <ul class="produits liste-reset">
+          <li>
+            <article class="produit">
+              <img src="img/thermometre.jpeg" alt="" width="400" height="300" loading="lazy">
+              <h3><a href="produit.html">Thermomètre médical sans contact</a></h3>
+              <p class="prix"><data value="29.90">29,90 €</data></p>
+              <p class="stock">En stock</p>
+            </article>
+          </li>
+          <li>
+            <article class="produit">
+              <img src="img/oxymetre.jpeg" alt="" width="400" height="300" loading="lazy">
+              <h3><a href="produit.html">Oxymètre de pouls</a></h3>
+              <p class="prix"><data value="24.90">24,90 €</data></p>
+              <p class="stock">En stock</p>
+            </article>
+          </li>
+          <li>
+            <article class="produit">
+              <img src="img/stetoscope.jpeg" alt="" width="400" height="300" loading="lazy">
+              <h3><a href="produit.html">Stéthoscope double pavillon</a></h3>
+              <p class="prix"><data value="39.90">39,90 €</data></p>
+              <p class="stock">En stock</p>
+            </article>
+          </li>
+          <li>
+            <article class="produit">
+              <img src="img/otoscope.jpeg" alt="" width="400" height="300" loading="lazy">
+              <h3><a href="produit.html">Otoscope de diagnostic</a></h3>
+              <p class="prix"><data value="79.00">79,00 €</data></p>
+              <p class="stock">En stock</p>
+            </article>
+          </li>
+          <li>
+            <article class="produit">
+              <img src="img/glucometre.jpeg" alt="" width="400" height="300" loading="lazy">
+              <h3><a href="produit.html">Glucomètre avec bandelettes</a></h3>
+              <p class="prix"><data value="19.90">19,90 €</data></p>
+              <p class="stock">En stock</p>
+            </article>
+          </li>
+          <li>
+            <article class="produit">
+              <img src="img/balance.jpeg" alt="" width="400" height="300" loading="lazy">
+              <h3><a href="produit.html">Pèse-personne médical</a></h3>
+              <p class="prix"><data value="59.00">59,00 €</data></p>
+              <p class="stock stock-rupture">En rupture de stock</p>
+            </article>
+          </li>
+        </ul>
+
+        <nav class="pagination" aria-label="Pagination">
+          <ul class="liste-reset">
+            <li><a href="recherche.html?page=1" aria-current="page"><span class="visually-hidden">Page </span>1</a></li>
+            <li><a href="recherche.html?page=2"><span class="visually-hidden">Page </span>2</a></li>
+            <li><a href="recherche.html?page=3"><span class="visually-hidden">Page </span>3</a></li>
+            <li><a href="recherche.html?page=2">Suivant</a></li>
+          </ul>
+        </nav>
+      </section>
+    </div>
+  </main>
+
+  <footer class="pied">
+    <nav aria-label="Informations légales">
+      <ul class="liste-reset">
+        <li><a href="cgu.html">CGU</a></li>
+        <li><a href="mentions-legales.html">Mentions légales</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Contact">
+      <ul class="liste-reset">
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="a-propos.html">À propos d'Althea Systems</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Réseaux sociaux">
+      <ul class="liste-reset">
+        <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn <span class="visually-hidden">(nouvel onglet)</span></a></li>
+        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram <span class="visually-hidden">(nouvel onglet)</span></a></li>
+      </ul>
+    </nav>
+    <p>© 2026 Althea Systems</p>
+  </footer>
+</body>
+</html>

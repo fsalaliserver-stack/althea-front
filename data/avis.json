@@ -1,0 +1,6 @@
+[
+  { "produit": "tensiometre", "auteur": "Dr Marie Lefèvre", "note": 5, "texte": "Mesures fiables et brassard confortable. Je l'utilise tous les jours au cabinet." },
+  { "produit": "tensiometre", "auteur": "Karim B.", "note": 4, "texte": "Simple à utiliser, la mémoire est pratique. Je retire une étoile pour l'écran un peu petit." },
+  { "produit": "tensiometre", "auteur": "<b>Pirate</b><img src=x onerror=alert(1)>", "note": 3, "texte": "<script>alert('xss')</script><b>Ce texte ne doit pas être en gras</b>" },
+  { "produit": "tensiometre", "auteur": "Faux avis", "note": 50, "texte": "Cette note est impossible : l'avis doit être ignoré." }
+]

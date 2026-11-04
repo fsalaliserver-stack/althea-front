@@ -40,3 +40,26 @@ Accueil en mode sombre :
 | Accueil | 100 | 93 |
 | Catégorie | 100 | 90 |
 | Produit | 100 | 100 |
+
+## JavaScript (jour 3)
+
+| Fichier | Rôle |
+|---------|------|
+| js/main.js | point d'entrée : branche tout le reste |
+| js/produits.js | les données : un objet par produit |
+| js/tri.js | le tri : prioritaires, autres, épuisés ; tris au choix (liste blanche) |
+| js/outils.js | formaterPrix |
+| js/catalogue.js | crée les cartes, avec textContent seulement |
+| js/panier.js | l'état du panier, sauvegardé et relu avec vérification |
+| js/icone-panier.js | le point rouge et le nombre d'articles |
+| js/menu.js | menu burger, aria-expanded, Échap |
+| js/carrousel.js | boutons et pastille active (IntersectionObserver) |
+| js/fiche.js | achat bloqué si épuisé, quantité vérifiée |
+| js/avis.js | avis chargés avec fetch, affichés en texte |
+| js/recherche.js | recherche sans accent, filtres lus dans l'adresse |
+| js/vue-panier.js | page panier |
+| js/tests.js | tests, lancés avec ?tests |
+
+**Règle du tri** : prioritaires en tête, autres au milieu, épuisés à la fin, même s'ils sont prioritaires.
+
+**Règle textContent** : une donnée s'écrit comme du texte, jamais avec innerHTML (voir docs/securite.md).

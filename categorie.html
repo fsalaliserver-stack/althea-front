@@ -11,7 +11,9 @@
   <link rel="icon" href="img/logo.PNG">
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/main.js"></script>
 </head>
+
 <body>
   <a class="evitement" href="#contenu">Aller au contenu</a>
 
@@ -33,7 +35,7 @@
     <nav id="menu-principal" class="menu" aria-label="Menu principal">
         <ul class="liste-reset">
           <li><a href="index.html" >Accueil</a></li>
-          <li><a href="categorie.html"aria-current="page">Diagnostic</a></li>
+          <li><a href="categorie.html" aria-current="page">Diagnostic</a></li>
           <li><a href="connexion.html">Se connecter</a></li>
           <li><a href="inscription.html">S'inscrire</a></li>
           <li><a href="cgu.html">CGU</a></li>
@@ -60,55 +62,19 @@
   <p>Les appareils de diagnostic pour votre cabinet médical.</p>
 
   <h2>Les produits de la catégorie</h2>
-  <ul class="produits liste-reset">
-    <li>
-        <article class="produit">
-        <img src="img/thermometre.jpeg" alt="" width="400" height="300" loading="lazy">
-        <h3><a href="produit.html">Thermomètre médical sans contact</a></h3>
-        <p class="prix"><data value="29.90">29,90 €</data></p>
-        <p class="stock">En stock</p>
-        </article>
-    </li>
-    <li>
-        <article class="produit">
-        <img src="img/oxymetre.jpeg" alt="" width="400" height="300" loading="lazy">
-        <h3><a href="produit.html">Oxymètre de pouls</a></h3>
-        <p class="prix"><data value="39.90">39,90 €</data></p>
-        <p class="stock">En stock</p>
-        </article>
-    </li>
-    <li>
-        <article class="produit">
-        <img src="img/stetoscope.jpeg" alt="" width="400" height="300" loading="lazy">
-        <h3><a href="produit.html">Stéthoscope double pavillon</a></h3>
-        <p class="prix"><data value="59.00">59,00 €</data></p>
-        <p class="stock">En stock</p>
-        </article>
-    </li>
-    <li>
-        <article class="produit">
-        <img src="img/otoscope.jpeg" alt="" width="400" height="300" loading="lazy">
-        <h3><a href="produit.html">Otoscope de diagnostic</a></h3>
-        <p class="prix"><data value="89.00">89,00 €</data></p>
-        <p class="stock">En stock</p>
-        </article>
-    </li>
-    <li>
-        <article class="produit">
-        <img src="img/glucometre.jpeg" alt="" width="400" height="300" loading="lazy">
-        <h3><a href="produit.html">Glucomètre</a></h3>
-        <p class="prix"><data value="24.90">24,90 €</data></p>
-        <p class="stock">En stock</p>
-        </article>
-    </li>
-    <li>
-        <article class="produit">
-        <img src="img/tensiometre.webp" alt="" width="400" height="300" loading="lazy">
-        <h3><a href="produit.html">Tensiomètre électronique de bras</a></h3>
-        <p class="prix"><data value="49.90">49,90 €</data></p>
-        <p class="stock stock-rupture">En rupture de stock</p>
-        </article>
-    </li>
+  <div class="filtre">
+    <label><input type="checkbox" id="dispo-seulement"> Disponible seulement</label>
+    <label for="choix-tri">Trier par</label>
+    <select id="choix-tri">
+      <option value="recommande">Recommandés</option>
+      <option value="prix-croissant">Prix croissant</option>
+      <option value="prix-decroissant">Prix décroissant</option>
+    </select>
+    <p id="nb-produits" aria-live="polite"></p>
+
+  </div>
+  <ul id="liste-produits" class="produits liste-reset">
+    
   </ul>
   <nav class="pagination" aria-label="Pagination">
    <ul class="liste-reset">

@@ -1,17 +1,19 @@
-/* ===== Reset ===== */
+/* JOUR 1 : base commune (reset, base, accessibilité, composants) */
+
+/* Reset */
 *, *::before, *::after { box-sizing: border-box; }
 body, h1, h2, h3, p, ul, ol, dl, dd { margin: 0; }
 img { display: block; max-width: 100%; height: auto; }
 input, button { font: inherit; }
 
-/* ===== Base ===== */
+/* Base */
 body {
   font-family: var(--police);
   font-size: var(--taille-base);
   line-height: 1.5;
   color: var(--couleur-texte);
   background: var(--couleur-fond);
-  overflow-wrap: anywhere;
+  overflow-wrap: anywhere;            /* Étape 3 : un mot très long se coupe à 320 px */
 }
 h1 { font-size: var(--taille-h1); }
 h2 { font-size: var(--taille-h2); }
@@ -19,13 +21,7 @@ h3 { font-size: var(--taille-h3); }
 p { max-width: 65ch; }
 a { color: var(--couleur-primaire); }
 
-main { 
-  padding: var(--espace);
-  width: min(100% - 2rem, 70rem);
-  margin-inline: auto;
-}
-
-/* ===== Accessibilité ===== */
+/* Accessibilité */
 :focus-visible {
   outline: 3px solid var(--couleur-primaire);
   outline-offset: 3px;
@@ -47,7 +43,7 @@ main {
   white-space: nowrap;
 }
 
-/* ===== Composants communs ===== */
+/* Composants communs */
 .liste-reset { list-style: none; padding: 0; }
 .btn {
   min-height: var(--cible);
@@ -68,23 +64,42 @@ main {
   font-weight: bold;
 }
 
-/* ===== En-tête et pied ===== */
+/* JOUR 2 : adapter à tous les écrans */
+
+/* Étape 2 : le conteneur fluide */
+/* min() garde la plus petite valeur : fluide sur téléphone, limité à 70rem sur grand écran */
+main {
+  padding: var(--espace);
+  width: min(100% - 2rem, 70rem);
+  margin-inline: auto;                /* centré */
+}
+
+/* Étape 3 : les paliers (mobile d'abord) */
+/* Le CSS sans condition est celui du téléphone ; on change seulement la variable */
+@media (min-width: 48rem) {           /* à partir de 768 px */
+  :root { --espace: 1.5rem; }
+}
+@media (min-width: 64rem) {           /* à partir de 1 024 px */
+  :root { --espace: 2.5rem; }
+}
+
+/* Étape 4 : l'en-tête sur une ligne (Flexbox) */
+/* Le fond va d'un bord à l'autre : on pousse le contenu avec le padding */
 .entete {
   padding: var(--espace);
+  padding-inline: var(--espace);
   background: var(--couleur-surface);
   border-bottom: 2px solid var(--couleur-primaire);
-  padding-inline: auto;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  flex-wrap: wrap;                    /* passe à la ligne si la place manque */
+  align-items: center;                /* centré en hauteur */
   gap: 1rem;
 }
-.logo{
-  margin-inline-end: auto;
-}
+.logo { margin-inline-end: auto; }    /* la marge auto pousse le reste à droite */
 .logo img { height: 40px; width: auto; }
+
 .panier { position: relative; display: inline-block; }
-.panier::after {
+.panier::after {                      /* le point rouge du panier */
   content: "";
   position: absolute;
   top: 8px;
@@ -94,115 +109,90 @@ main {
   border-radius: 50%;
   background: var(--couleur-alerte);
 }
+
 .recherche input,
 .recherche button { min-height: var(--cible); }
 
-.menu a {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--cible);
+/* Téléphone : la recherche et le menu prennent toute la ligne */
+.recherche,
+.menu { flex-basis: 100%; }
+
+@media (min-width: 48rem) {
+  .recherche { flex-basis: 20rem; }   /* tablette : la recherche rejoint la ligne du logo */
 }
 
-.menu ul{
+/* Étape 5 : les liens du menu et du pied */
+/* Liens côte à côte, cible tactile d'au moins 44 px */
+.menu ul,
+.pied ul {
   display: flex;
   flex-wrap: wrap;
   gap: 0 1rem;
 }
-.pied { 
-  display: none; 
-  width: min(100% - 2rem, 70rem);
-  margin-inline: auto;
-
-} /* caché sur téléphone (§ III) */
-.pied ul{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 1rem;
-}
+.menu a,
 .pied a {
   display: inline-flex;
   align-items: center;
   min-height: var(--cible);
 }
 
-
-/* ===== Accueil ===== */
-.carrousel img { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; }
-.categories img,
-.produit img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
-
-.produit {
-  padding: var(--espace);
-  margin-bottom: var(--espace);
-  background: var(--couleur-surface);
-  border-radius: var(--rayon);
-}
-.prix { font-weight: bold; }
-.produit:has(.stock-rupture) img { filter: grayscale(1); }
-
-/* ===== Produit ===== */
-.ariane li { display: inline; }
-.ariane li + li::before { content: " › "; }
-.prix-fiche { font-size: var(--taille-h2); font-weight: bold; }
-.achat .btn { width: 100%; }
-.caracteristiques dt { font-weight: bold; }
-
-
+/* Étape 6 : les langues */
 .langues {
   display: flex;
   gap: 0 1rem;
 }
-.langues a{
-  min-height: var(--cible);
-}
-.langues [aria-current="true"]{
-  font-weight: bold;
+.langues a { min-height: var(--cible); }
+.langues [aria-current="true"] { font-weight: bold; }   /* la langue en cours */
 
+/* Étape 7 : le pied de page */
+.pied {
+  display: none;                      /* caché sur téléphone (§ III) */
+  width: min(100% - 2rem, 70rem);
+  margin-inline: auto;
+}
+@media (min-width: 64rem) {
+  .pied {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);   /* 3 colonnes égales */
+  }
+  .pied p { grid-column: 1 / -1; }           /* le © sur toute la largeur */
 }
 
-/* Carrousel : slides côte à côte, défilement aimanté */
+/* Étape 10 : le carrousel (défilement aimanté) */
 .defile {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 100%;
+  grid-auto-flow: column;             /* slides côte à côte */
+  grid-auto-columns: 100%;            /* une slide = toute la largeur */
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: x mandatory;      /* sur la zone */
 }
+.defile > li { scroll-snap-align: start; }   /* sur chaque slide */
 
-.defile > li {
-  scroll-snap-align: start;
-}
-
-.slide {
-  display: grid;
-}
-
-.slide > * {
-  grid-area: 1 / 1;
-}
-
-.slide img {
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
-
+/* Texte posé sur l'image : même case de grille */
+.slide { display: grid; }
+.slide > * { grid-area: 1 / 1; }
+.slide img { aspect-ratio: 16 / 9; object-fit: cover; }
 .slide-texte {
   align-self: end;
-  color: #fff;
+  color: var(--couleur-sur-image);    /* Étape 27 : reste blanc en mode sombre */
   background: linear-gradient(transparent, rgb(0 0 0 / 0.75));
 }
+
+.carrousel img { aspect-ratio: 16 / 9; object-fit: cover; width: 100%; }
+
+/* Étape 11 : les pastilles */
 .pastilles {
   display: flex;
   justify-content: center;
   gap: 0.25rem;
 }
-.pastilles a {
+.pastilles a {                        /* zone à toucher : 44 px */
   display: grid;
   place-items: center;
   min-width: var(--cible);
   min-height: var(--cible);
 }
-.pastilles a::before {
+.pastilles a::before {                /* le rond de 12 px */
   content: "";
   width: 12px;
   height: 12px;
@@ -210,143 +200,159 @@ main {
   background: var(--couleur-primaire);
 }
 
-
-
+/* Étape 12 : les catégories (grille adaptative) */
 .categories ul {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 9rem), 1fr));
 }
+.categories img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
 
-/*Top produit*/
+/* Étape 13 : les cartes produit */
 .top-produits ul {
   display: flex;
   flex-wrap: wrap;
   gap: var(--espace);
 }
-
 .top-produits li {
-  flex: 1 1 14rem;
-  min-width: 0;
+  flex: 1 1 14rem;                    /* part de 14rem, grandit et rétrécit */
+  min-width: 0;                       /* a le droit de rétrécir : pas de débordement */
 }
 
 .produit {
   display: flex;
-  flex-direction: column;
+  flex-direction: column;             /* image, titre, prix empilés */
   height: 100%;
+  padding: var(--espace);
+  margin-bottom: var(--espace);
+  background: var(--couleur-surface);
+  border-radius: var(--rayon);
 }
+.produit img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
+.produit:has(.stock-rupture) img { filter: grayscale(1); }   /* produit épuisé en gris */
+.prix { font-weight: bold; }
+.produit .prix { margin-block-start: auto; }                 /* prix poussé en bas */
 
-.produit .prix {
-  margin-block-start: auto;
-}
+/* Étape 14 : des cartes qui réagissent */
+/* Seulement si la personne n'a pas demandé moins d'animations */
+@media (prefers-reduced-motion: no-preference) {
+  .defile { scroll-behavior: smooth; }              /* Étape 10 : défilement doux */
 
-
-@media (min-width: 48rem){
-  :root{
-    --espace: 1.5rem;
+  .produit { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .produit:hover,                                   /* souris */
+  .produit:focus-within {                           /* clavier */
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgb(0 0 0 / 0.15);
   }
-}
-@media(min-width: 64rem){
-  :root{
-    --espace:2,5rem;
-  }
-}
-@media (min-width: 64rem) {
-  .pied {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
 
-  .pied p {
-    grid-column: 1 / -1;
-  }
+  .btn { transition: background-color 0.2s ease; }
 }
 
-/*Bandeau*/
-.bandeau{
-  display: grid;
-}
-.bandeau > * {
-  grid-area: 1 / 1;
-}
-
-.bandeau img {
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
-
+/* Étape 16 : le bandeau de la catégorie */
+.bandeau { display: grid; }
+.bandeau > * { grid-area: 1 / 1; }    /* image et titre superposés */
+.bandeau img { aspect-ratio: 16 / 9; object-fit: cover; }
 .bandeau h1 {
   align-self: end;
-  color: #fff;
+  color: var(--couleur-sur-image);
   background: linear-gradient(transparent, rgb(0 0 0 / 0.75));
 }
 
+/* Étape 17 : la liste, puis la grille */
 .produits {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);   /* téléphone : une colonne qui ne déborde pas */
+}
+@media (min-width: 48rem) {
+  .produits {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  }
 }
 
+/* Étape 18 : la pagination */
 .pagination ul {
-display: flex;                 
-justify-content: center;       
-gap: 0.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
 }
 .pagination a {
-display: inline-flex; align-items: center; justify-content: center;
-min-width: 44px; min-height: 44px;            
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  border: 2px solid var(--couleur-primaire);
 }
-.pagination [aria-current="page"] {             
-background: #7A1F3D; color: #FFFFFF;
+.pagination [aria-current="page"] {   /* la page en cours */
+  background: var(--couleur-primaire);
+  color: var(--couleur-sur-primaire);
 }
 
+/* Étape 20 : la fiche produit en zones */
+.ariane li { display: inline; }
+.ariane li + li::before { content: " › "; }
+.prix-fiche { font-size: var(--taille-h2); font-weight: bold; }
+.achat .btn { width: 100%; }
+.caracteristiques dt { font-weight: bold; }
 
+@media (min-width: 64rem) {
+  .fiche {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "images infos"
+      "description infos";
+  }
+  .fiche-images { grid-area: images; }
+  .fiche-infos { grid-area: infos; }
+  .fiche-description { grid-area: description; }
+}
+
+/* Étape 21 : la galerie du produit */
+/* Elle réutilise .defile : on ajoute seulement ce qui change */
 .galerie {
-grid-auto-columns: 85%;   /* la photo suivante dépasse un peu */
-gap: 1rem;
+  grid-auto-columns: 85%;             /* la photo suivante dépasse un peu */
+  gap: 1rem;
 }
 
-.defile-tableau {
-  overflow-x: auto;
-}
-/* ===== Étape 23 : Tableau des tailles ===== */
-
-.defile-tableau {
-  overflow-x: auto;
-}
+/* Étape 23 : le tableau des tailles */
+.defile-tableau { overflow-x: auto; }       /* le tableau défile, pas la page */
 
 .formats {
   min-width: 32rem;
   border-collapse: collapse;
 }
-
 .formats th,
 .formats td {
   padding: 0.5rem 1rem;
   text-align: start;
 }
-
 .formats thead {
   background: var(--couleur-primaire);
   color: var(--couleur-sur-primaire);
 }
-
-.formats tbody tr:nth-child(even) {
-  background: var(--couleur-surface);
-}
-
-.formats tbody th {
+.formats tbody tr:nth-child(even) { background: var(--couleur-surface); }   /* une ligne sur deux */
+.formats tbody th {                   /* la 1re colonne reste visible */
   position: sticky;
   inset-inline-start: 0;
   background: var(--couleur-fond);
 }
 
-/*  Recherche*/
+/* Étape 25 : la page Recherche */
 .facettes input:not([type="checkbox"]),
 .facettes select,
 .facettes .btn {
   min-height: var(--cible);
   width: 100%;
 }
+@media (min-width: 64rem) {
+  .recherche-avancee {
+    display: grid;
+    grid-template-columns: 18rem minmax(0, 1fr);   /* filtres | résultats */
+    gap: var(--espace);
+  }
+}
 
+/* Étape 26 : Connexion et Inscription */
 .formulaire {
   display: flex;
   flex-direction: column;
@@ -358,60 +364,35 @@ gap: 1rem;
   width: 100%;
 }
 .erreur { display: none; color: var(--couleur-alerte); }
-.formulaire input:user-invalid { border-color: var(--couleur-alerte); border-width: 2px; }
-.formulaire p:has(input:user-invalid) .erreur { display: block; }
+.formulaire input:user-invalid { border-color: var(--couleur-alerte); border-width: 2px; }   /* faux, après la saisie */
+.formulaire p:has(input:user-invalid) .erreur { display: block; }                            /* le message apparaît */
 
-@media (min-width: 64rem) {
-  .recherche-avancee {
-    display: grid;
-    grid-template-columns: 18rem minmax(0, 1fr);
-    gap: var(--espace);
+/* Étape 27 : le mode sombre */
+/* Les couleurs sont dans variables.css. Ici : seulement ce qui est propre aux composants */
+@media (prefers-color-scheme: dark) {
+  .logo img {                         /* le texte du logo est foncé : fond blanc arrondi */
+    background: #fff;
+    border-radius: var(--rayon);
+    padding: 0.25rem 0.5rem;
+    box-sizing: content-box;
   }
 }
 
-/* Défilement doux, seulement si la personne ne l'a pas refusé */
-@media (prefers-reduced-motion: no-preference) {
-  .defile {
-    scroll-behavior: smooth;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference){
-  .produit{
-     transition: 0.2s ease, box-shadow 0.2s ease;
-  }
-  .produit:hover,
-  .produit:focus-within {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgb(0 0 0 / 0.15);
-  }
-
-  .btn {
-    transition: background-color 0.2s ease;
-  }
-}
-
-@media (min-width: 48rem) {
-  .produits {
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
-  }
-}
-
-@media (min-width: 64rem) {
-  .fiche {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "images infos"
-      "description infos";
-  }
-
-  .fiche-images { grid-area: images; }
-  .fiche-infos { grid-area: infos; }
-  .fiche-description { grid-area: description; }
-}
-
+/* Étape 24 : la version imprimable */
 @media print {
+  /* Noir sur blanc, même si l'écran est en mode sombre */
+  :root {
+    --couleur-fond: #fff;
+    --couleur-surface: #fff;
+    --couleur-texte: #000;
+    --couleur-texte-discret: #000;
+    --couleur-primaire: #000;
+    --couleur-sur-primaire: #fff;
+    --couleur-alerte: #000;
+  }
+  body { color: #000; background: #fff; }
+
+  /* Inutile sur papier */
   .evitement,
   .menu-bouton,
   .recherche,
@@ -423,26 +404,23 @@ gap: 1rem;
   .pied,
   .ariane { display: none; }
 
-  body { color: #000; background: #fff; }
-
+  /* La fiche en une seule colonne */
   .fiche { display: block; }
 
-
+  /* Une seule photo, sans défilement */
   .defile { display: block; overflow: visible; }
   .galerie li:not(:first-child) { display: none; }
 
+  /* Le tableau tient dans la page, avec des bordures */
+  .defile-tableau { overflow: visible; }
+  .formats { min-width: 0; width: 100%; }
+  .formats th,
+  .formats td { border: 1px solid #000; }
 
+  /* Jamais coupés entre deux pages */
   .formats,
   .caracteristiques { break-inside: avoid; }
 
+  /* L'adresse écrite après chaque lien externe */
   a[href^="http"]::after { content: " (" attr(href) ")"; }
-  
-}
-@media (prefers-color-scheme: dark) {
-  .logo img {
-    background: #FFFFFF;           
-    border-radius: var(--rayon);
-    padding: 0.25rem 0.5rem;
-    box-sizing: content-box;
-  }
 }

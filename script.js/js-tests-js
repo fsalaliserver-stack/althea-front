@@ -1,0 +1,114 @@
+import { formaterPrix } from "./outils.js";
+
+import {
+    produits,
+    trouverProduit
+} from "./produits.js";
+
+import {
+    trierCatalogue,
+    trierPar
+} from "./tri.js";
+
+import {
+    filtrerProduits,
+    normaliser
+} from "./recherche.js";
+
+export function lancerTests() {
+    const listeTest = [
+        {
+            id: "normal",
+            nom: "Produit normal",
+            prix: 20,
+            stock: 5,
+            prioritaire: false
+        },
+        {
+            id: "prioritaire",
+            nom: "Produit prioritaire",
+            prix: 30,
+            stock: 5,
+            prioritaire: true
+        },
+        {
+            id: "epuise",
+            nom: "Produit épuisé",
+            prix: 10,
+            stock: 0,
+            prioritaire: false
+        },
+        {
+            id: "epuise-prioritaire",
+            nom: "Produit épuisé prioritaire",
+            prix: 15,
+            stock: 0,
+            prioritaire: true
+        }
+    ];
+
+    const copieOriginale = [...listeTest];
+
+    const tries = trierCatalogue(listeTest);
+
+    const essais = [
+        [
+            "Prix 89,90 €",
+            formaterPrix(89.9) === "89,90 €"
+        ],
+        [
+            "Prix 24,00 €",
+            formaterPrix(24) === "24,00 €"
+        ],
+        [
+            "Produit épuisé à la fin",
+            tries[tries.length - 1].stock === 0
+        ],
+        [
+            "Produit prioritaire en tête",
+            tries[0].prioritaire === true
+        ],
+        [
+            "Produit épuisé prioritaire à la fin",
+            tries[tries.length - 1].id === "epuise-prioritaire"
+        ],
+        [
+            "Tableau original inchangé",
+            listeTest[0] === copieOriginale[0] &&
+            listeTest[1] === copieOriginale[1]
+        ],
+        [
+            "Tri par prix : épuisés à la fin",
+            trierPar(listeTest, "prix-croissant").at(-1).stock === 0
+        ],
+        [
+            "Tri inconnu : tri recommandé",
+            trierPar(listeTest, "inconnu")[0].id ===
+            trierCatalogue(listeTest)[0].id
+        ],
+        [
+            "Recherche sans accent",
+            normaliser(" StéThoscope ") === "stethoscope"
+        ],
+        [
+            "Filtre par prix maximum",
+            filtrerProduits(
+                [
+                    { nom: "A", prix: 20, stock: 5 },
+                    { nom: "B", prix: 60, stock: 5 }
+                ],
+                { prixMax: 50 }
+            ).length === 1
+        ]
+    ];
+
+    let reussis = 0;
+
+    essais.forEach(([nom, ok]) => {
+        console.assert(ok, `Échec : ${nom}`);
+
+        if (ok) reussis++;
+    });
+
+    console.log(`Tests : ${reussis} / ${essais.length} réussis`);
+}

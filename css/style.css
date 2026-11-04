@@ -869,3 +869,21 @@ main,
     content: " (" attr(href) ")";
   }
 }
+.filtre label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+}
+
+.filtre input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
+
+.filtre select {
+    min-height: 44px;
+    padding: 8px;
+    color: var(--texte);
+    background-color: var(--fond);
+    border: 1px solid var(--bordure);
+}

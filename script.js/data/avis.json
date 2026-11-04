@@ -1,0 +1,26 @@
+[
+    {
+        "produit": "tensiometre",
+        "auteur": "Sophie",
+        "note": 5,
+        "texte": "Très bon produit, facile à utiliser."
+    },
+    {
+        "produit": "tensiometre",
+        "auteur": "Thomas",
+        "note": 4,
+        "texte": "Bon rapport qualité-prix."
+    },
+    {
+        "produit": "tensiometre",
+        "auteur": "<img src=x onerror=alert(1)>",
+        "note": 5,
+        "texte": "<script>alert(1)</script>"
+    },
+    {
+        "produit": "tensiometre",
+        "auteur": "Test",
+        "note": 50,
+        "texte": "Cet avis doit être ignoré."
+    }
+]

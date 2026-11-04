@@ -28,3 +28,21 @@ Le fichier .gitignore exclut :
 Les contrôles HTML peuvent être supprimés par le visiteur.
 
 Le serveur doit donc vérifier les données reçues.
+## XSS
+
+Une faille XSS (Cross-Site Scripting) permet à un utilisateur malveillant
+d'injecter du code dans une page web.
+
+Une donnée provenant d'un utilisateur ne doit jamais être interprétée
+comme du HTML.
+
+La règle appliquée dans le projet est d'utiliser textContent pour écrire
+les noms des produits, les avis et les autres données dynamiques.
+
+Le fichier produits.js contient un produit de test avec un nom piégé :
+
+Gants nitrile <img src="x" onerror="alert(1)">
+
+Le test consiste à afficher ce nom dans le catalogue.
+
+Résultat attendu : le texte complet s'affiche, sans exécuter de code.
